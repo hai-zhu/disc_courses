@@ -1,0 +1,237 @@
+\documentclass[a4 paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+%% preamble
+\input{preamble}
+
+%% title information
+\title{
+        \Large{DISC Course: Nonlinear Control Systems}\\
+        \vspace{1em}
+        \large\tb{Assignment 3}
+}
+\author{
+        \small Hai Zhu                          \\
+        \small Delft University of Technology   \\
+        \tt\small h.zhu@tudelft.nl
+ }
+\date{\small\ti{Monday 26 February 2018}}
+
+%% document
+\begin{document}
+%% title
+\maketitle
+
+
+%% Exercise 1
+\tb{Exercise 1} (13.12 from \cite{c1})
+
+\tb{Solution:}
+(a) The system dynamics can be written in the form $\dot{x} = f(x) + g(x)u$ where $x = [x_1,x_2,x_3]^T$ and 
+\begin{align}
+        f(x) &= \mat -x_1+x_1x_2 \\ x_2+x_3 \\ \delta(x) \mate \\
+        g(x) &= \mat 0 \\ 0 \\ 1 \mate
+\end{align}
+Let $ h(x) = y = x_1 + x_2$, then the system can be described as follows
+\begin{align}
+        y &= x_1 + x_2 \\
+        \dot{y} &= \dot{x}_1 + \dot{x}_2 = -x_1+x_1x_2+x_2+x_3 \\
+        \ddot{y} &= -\dot{x}_1 + \dot{x}_1x_2 + x_1\dot{x}_2 + \dot{x}_2 + \dot{x}_3 \\
+        &= (-1+x_2)(-x_1+x_1x_2) +(x_1+1)(x_2+x_3)+\delta(x)+u
+\end{align}
+It is obvious that the system has a relative degree of 2 in $\R^3$ ($L_gL_fh(x) = 1$). Hence, the system is input-output linearizable.
+
+(b) Consider the following change of variables
+\begin{align}
+        \eta &= \phi(x) \\
+        \xi_1 &= h(x) = x_1+x_2 \\
+        \xi_2 &= L_fh(x) = -x_1+x_1x_2+x_2+x_3
+\end{align}
+where $\phi(x)$ satisfies
+\begin{equation}
+        L_g\phi(x) = \frac{\partial\phi(x)}{\partial x}g(x) = 0
+\end{equation}
+which gives a solution $\phi(x) = x_1$. Thus, consider the following coordinate transformation matrix
+\begin{equation}
+        T(x) = \mat \eta \\ \xi_1 \\ \xi_2 \mate = \mat x_1 \\ x_1+x_2 \\ -x_1+x_1x_2+x_2+x_3 \mate
+\end{equation}
+which is a diffeomorphism in the domain $\{ x\in\R^3 | x\neq0 \}$. Furthermore, it transforms the system into the following normal form 
+\begin{align}
+        \dot\eta &= -\eta + \eta(\xi_1-\eta) \\
+        \dot\xi_1 &= \xi_2 \\
+        \dot\xi_2 &= (-1+x_2)(-x_1+x_1x_2) +(x_1+1)(x_2+x_3)+\delta(x)+u
+\end{align}
+
+(c) Consider the zero dynamics of the system $y(t) = 0$, which results in $\xi_1(t)=0$ and $\xi_2(t)=0$. Therefore, the dynamics of $\eta$ is described as follows
+\begin{equation}
+        \dot\eta = -\eta - \eta^2
+\end{equation}
+Let $\eta(0) = \eta_0 \neq -1$, then we can obtain the solution of the above differential equation
+\begin{equation}
+        \eta(t) = -\frac{e^{C-t}}{e^{C-t}-1}, \quad C = \log\frac{y_0}{y_0+1}
+\end{equation}
+Thus, $\lim_{t\ra\infty}\eta(t) = 1$. Therefore, the origin of the zero dynamics is asymptotically stable. Hence, the system is minimum phase.
+
+(d) According to the system dynamics, we have
+\begin{equation}
+        ad_fg(x) = -\mat -1+x_2 &x_1 &0 \\ 0 &1 &1 \\ \frac{\partial{\delta(x)}}{\partial{x_1}} &\frac{\partial{\delta(x)}}{\partial{x_2}} &\frac{\partial{\delta(x)}}{\partial{x_3}} \mate \mat 0 \\ 1 \\ 1 \mate = \mat 0 \\ -1 \\ -\frac{\partial{\delta(x)}}{\partial{x_3}} \mate
+\end{equation}
+\begin{equation}
+        \begin{aligned}
+                ad_f^2g(x) = &-\mat 0 &0 &0 \\ 0 &0 &0 \\ \frac{\partial^2{\delta(x)}}{\partial{x_1^2}} &\frac{\partial^2{\delta(x)}}{\partial{x_2^2}} &\frac{\partial^2{\delta(x)}}{\partial{x_3^2}} \mate \mat -x_1+x_1x_2 \\ x_2+x_3 \\ \delta(x) \mate \\
+                 &-\mat -1+x_2 &x_1 &0 \\ 0 &1 &1 \\ \frac{\partial{\delta(x)}}{\partial{x_1}} &\frac{\partial{\delta(x)}}{\partial{x_2}} &\frac{\partial{\delta(x)}}{\partial{x_3}} \mate \mat 0 \\ -1 \\ -\frac{\partial{\delta(x)}}{\partial{x_3}}  \mate 
+                 = \mat x_1 \\ \star \\ \star \mate
+        \end{aligned}
+\end{equation}
+Consider the matrix $M = [g(x) ~~ad_fg(x) ~~ad_f^2g(x)]$
+\begin{equation}
+        M = \mat 0 &0 &x_1 \\ 0 &-1 &\star \\ 1 &-\frac{\partial{\delta(x)}}{\partial{x_3}} &\star \mate
+\end{equation}
+whose rank is 3 if $x_1\neq0$ and we have $\det{(M)}=x_1$. Hence, the system is feedback linearizable in the domain $\{ x\in\R^3 | x\neq0 \}$.
+
+(e) The objective is to find an output $h(x)$ which satisfies 
+\begin{align}
+        h(0) &= 0 \\
+        L_gh(x) &= \frac{\partial{h(x)}}{\partial{x}}g(x) = 0 \\
+        L_gL_fh(x) &= \frac{\partial{L_fh(x)}}{\partial{x}}g(x) = 0 \\
+        L_gL_f^2h(x) &= \frac{\partial{L_f^2h(x)}}{\partial{x}}g(x) \neq 0
+\end{align} 
+It can be verified that $h(x) = x_1$ is a solution of the above equations, which results in 
+\begin{align}
+        L_fh(x) &= \frac{\partial{h(x)}}{\partial{x}}f(x) = -x_1+x_1x_2 \\
+        L_f^2h(x) &= \frac{\partial{L_fh(x)}}{\partial{x}}f(x) = x_1(-1+x_2)^2 + x_1(x_2+x_3)
+\end{align}
+Thus, consider the following transformation matrix
+\begin{equation}
+        T(x) = [h(x), L_fh(x), L_f^2h(x)]^T = \mat x_1 \\ -x_1+x_1x_2  \\ x_1(-1+x_2)^2 + x_1(x_2+x_3) \mate
+\end{equation}
+which is a diffeomorphism in the domain $\{ x\in\R^3 | x\neq0 \}$. Taking $z=T(x)$, the resulting transformed system is
+\begin{align}
+        \dot{z}_1 &= z_2 \\
+        \dot{z}_2 &= z_3 \\
+        \dot{z}_3 &=  x_1(u-\alpha(x))
+\end{align}
+and the feedback control law is taken as $u = \alpha(x) + \frac{v}{x_1}$.
+
+
+%% Exercise 2
+\tb{Exercise 2} (13.17 from \cite{c1})
+
+\tb{Solution:} 
+The system dynamics can be written in the form $\dot{x} = f(x) + g(x)u$ where $x = [x_1,x_2,x_3]^T$ and 
+\begin{align}
+        f(x) &= \mat -x_1+x_2 \\ x_1-x_2-x_1x_3 \\ x_1+x_1x_2-2x_3 \mate \\
+        g(x) &= \mat 0 \\ 1 \\ 0 \mate
+\end{align}
+Thus, we can calculate
+\begin{equation}
+        ad_fg(x) = [f(x), g(x)] = \mat -1 \\ 1 \\ -x_1 \mate \\
+\end{equation}
+\begin{equation}
+        [g(x), ad_fg(x)] = [0 ~0 ~0]^T
+\end{equation}
+and 
+\begin{equation}
+        ad_f^2g(x) = [f(x), ad_fg(x)] = \mat -2 \\ 2-x_3-x_1^2 \\ 1-2x_1 \mate
+\end{equation}
+Consider the matrix $M = [g(x) ~~ad_fg(x) ~~ad_f^2g(x)]$
+\begin{equation}
+        M = \mat 0 &-1 &-2 \\ 1 &1 &2-x_3-x_1^2 \\ 0 &-x_1 &1-2x_1 \mate
+\end{equation}
+where $\det(M)=1$. Therefore, the system is feedback linearizable. The objective is to find an output $h(x)$ which satisfies 
+\begin{align}
+        h(0) &= 0 \\
+        L_gh(x) &= \frac{\partial{h(x)}}{\partial{x}}g(x) = 0 \\
+        L_gL_fh(x) &= \frac{\partial{L_fh(x)}}{\partial{x}}g(x) = 0 \\
+        L_gL_f^2h(x) &= \frac{\partial{L_f^2h(x)}}{\partial{x}}g(x) \neq 0
+\end{align} 
+It can be verified that $h(x) = x_1^2 - 2x_3$ is a solution of the above equations, which results in 
+\begin{align}
+        L_fh(x) &= \frac{\partial{h(x)}}{\partial{x}}f(x) = -2(x_1^2+x_1-2x_3) \\
+        L_f^2h(x) &= \frac{\partial{L_fh(x)}}{\partial{x}}f(x) = 4x_1^2+6x_1-2x_2-8x_3
+\end{align}
+Thus, consider the following transformation matrix
+\begin{equation}
+        T(x) = [h(x), L_fh(x), L_f^2h(x)]^T = \mat x_1^2 - 2x_3 \\ -2(x_1^2+x_1-2x_3) \\ 4x_1^2+6x_1-2x_2-8x_3 \mate
+\end{equation}
+which can be verified is a global diffeomorphism. Taking $z=T(x)$, we can obtain
+\begin{align}
+        \dot{z}_1 &= z_2 \\
+        \dot{z}_2 &= z_3 \\
+        \dot{z}_3 &= -8x_1^2 +2x_1x_3 - 16x_1 + 8x_2 + 16x_3 + 2u \\
+                  &= -4z_2 - 4z_3 + 2(u + x_1x_3)
+\end{align}
+Thus, the above equations can be written in the following form
+\begin{equation}
+        \dot{z} = Az - 2B(u-\alpha(x))
+\end{equation}
+Hence, the feedback control law to globally stabilize the origin can be taken as $u=\alpha(x)+\half K$, where $K$ is a matrix such that $A-BK$ is Hurwitz.
+
+
+%% Exercise 3
+\tb{Exercise 3} (13.24 from \cite{c1})
+
+\tb{Solution:} 
+Since $V(\eta,\xi) = V_0(\eta) + \lambda\sqrt{\xi^TP\xi}$, we have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(\eta,\xi) &= \frac{V_0(\eta)}{\partial{\eta}}\dot\eta + \frac{\lambda}{2\sqrt{\xi^TP\xi}}(\dot\xi^TP\xi + \xi^TP\dot\xi) \\
+        \end{aligned}
+\end{equation}
+Note that $P$ satisfies 
+\begin{equation}
+        P(A-BK) + (A-BK)^TP = -I
+\end{equation}
+from which we can conclude that $P$ is symmetric. 
+Hence, we have 
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(\eta,\xi) &= \frac{V_0(\eta)}{\partial{\eta}}f(\eta,\xi) +  \frac{\lambda}{2\sqrt{\xi^TP\xi}}(-\xi^T\xi + 2\xi^TPB\delta(z)) \\
+                &= \frac{V_0(\eta)}{\partial{\eta}}f(\eta,0) + \frac{V_0(\eta)}{\partial{\eta}}[f(\eta,\xi) - f(\eta,0)] +  \frac{\lambda}{2\sqrt{\xi^TP\xi}}(-\xi^T\xi + 2\xi^TPB\delta(z)) \\
+        \end{aligned}
+\end{equation}
+Note that $f_0(\eta,\xi)$ is local Lipschitz and $\frac{V_0(\eta)}{\partial{\eta}}$ is bounded in some neighborhood of $\eta=0$. We have 
+\begin{equation}
+        \frac{V_0(\eta)}{\partial{\eta}}[f(\eta,\xi) - f(\eta,0)] \leq c_1\norm{\xi}
+\end{equation}
+where $c_1$ is a positive constant.
+Furthermore, since 
+\begin{equation}
+        \frac{V_0(\eta)}{\partial{\eta}}f(\eta,0) \leq -W(\eta)
+\end{equation}
+and 
+\begin{equation}
+       \norm{\delta(z)} \leq k(\norm{\xi} + W(\eta)) 
+\end{equation}
+We have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(\eta,\xi) &= \frac{V_0(\eta)}{\partial{\eta}}f(\eta,0) + \frac{V_0(\eta)}{\partial{\eta}}[f(\eta,\xi) - f(\eta,0)] +  \frac{\lambda}{2\sqrt{\xi^TP\xi}}(-\xi^T\xi + 2\xi^TPB\delta(z)) \\
+                &\leq -W(\eta) + c_1\norm{\xi} -c_2\lambda\norm{\xi} + c_3\lambda\norm{\delta}  \\ 
+                &\leq -W(\eta) + c_1\norm{\xi} -c_2\lambda\norm{\xi} + kc_3\lambda\norm{\xi} + kc_3\lambda W(\eta) \\
+                &= -(1-kc_3\lambda)W(\eta) - (c_2\lambda - c_1 - kc_3\lambda)\norm{\xi}
+        \end{aligned}
+\end{equation}
+where $c_1, c_2, c_3$ are positive constants.
+
+Now, in the Lyapunov function candidate $V(\eta,\xi)$, we take $\lambda = 2c_1/c_2$ and let $c^\star = \frac{\min\{1,c_1\}}{2c_3\lambda}$. Then, for $\forall k<c^\star$ we have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(\eta,\xi) &\leq -(1-kc_3\lambda)W(\eta) - (c_2\lambda - c_1 - kc_3\lambda)\norm{\xi} \\
+                &\leq -\half W(\eta) - \half c_1\norm{\xi}
+        \end{aligned}
+\end{equation}
+Hence, the origin $z=0$ is asymptotically stable for sufficiently small $k$.
+
+
+%% Bibliography
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+        \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+            
+\end{thebibliography}
+
+
+\end{document}

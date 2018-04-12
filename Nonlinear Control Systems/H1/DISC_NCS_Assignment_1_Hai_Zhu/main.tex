@@ -1,0 +1,184 @@
+\documentclass[a4 paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+%% preamble
+\input{preamble}
+
+%% title information
+\title{
+        \Large{DISC Course: Nonlinear Control Systems}\\
+        \vspace{1em}
+        \large\tb{Assignment 1}
+}
+\author{
+        \small Hai Zhu                          \\
+        \small Delft University of Technology   \\
+        \tt\small h.zhu@tudelft.nl
+ }
+\date{\small\ti{Monday 5 February 2018}}
+
+%% document
+\begin{document}
+%% title
+\maketitle
+
+
+%% Exercise 1
+\tb{Exercise 1}
+(4.15 from \cite{c1}): Consider the system 
+\begin{equation*}
+        \dot{x}_1 = x_2, \quad \dot{x}_2 = -h_1(x_1)-x_2-h_2(x_3), \quad \dot{x}_3 = x_2 - x_3
+\end{equation*}
+where $h_1$ and $h_2$ are locally Lipschitz functions \emph{(we need $h_2$ to be at least Lipschitz at 0)} that satisfy $h_i(0)=0$ and $yh_i(y)>0$ for all $y\neq0$.
+\begin{enumerate}[itemsep=1pt, parsep=1pt, label=(\alph*)]
+        \item Show that the system has a unique equilibrium point at the origin.
+        \item Show that $V(x)=\int_0^{x_1}h_1(y)dy + x_2^2/2 + \int_0^{x_3}h_2(y)dy$ is positive definite for all $x\in\R^3$.
+        \item Show that the origin is asymptotically stable.
+        \item Under what conditions on $h_1$ and $h_2$, can you show that the origin is globally asymptotically stable.
+\end{enumerate}
+
+\tb{Solution:}
+(a) Assume $\bar{x} = [\bar{x}_1, \bar{x}_2, \bar{x}_3]^T$ is an equilibrium point of the system. According to the definition of equilibrium points, we have
+\begin{subequations}
+        \begin{alignat}{2}
+                \bar{x}_2 &= 0          \\
+                -h_1(\bar{x}_1)-\bar{x}_2-h_2(\bar{x}_3) &= 0      \\
+                \bar{x}_2 - \bar{x}_3 &= 0
+        \end{alignat}
+\end{subequations}
+This results $\bar{x}_2=0$, $\bar{x}_3=0$ and $h_1(\bar{x}_1)=-h_2(0)=0$. Since $yh_i(y)>0$ for all $y\neq0$, we have $h_i(y)\neq0$ for all $y\neq0$. Therefore, $h_1(\bar{x}_1)=0 \Rightarrow \bar{x}_1 = 0$. Hence, the system has a unique equilibrium point at the origin, i.e., $[\bar{x}_1, \bar{x}_2, \bar{x}_3]^T = [0,0,0]^T$.
+
+(b) To show that $V(x)$ is positive definite for all $x\in\R^3$, we need to show
+\begin{subequations}
+        \begin{alignat}{2}
+                V(0) &= 0             \\
+                V(x) &> 0, \quad \forall x\in\R^3, x\neq0
+        \end{alignat}
+\end{subequations}
+For the first condition, it is trivial that $V(0) = 0$. For the second condition, notice that $V(x)$ is a sum of three non-negative terms, thus we have $V(x)\geq0$. Furthermore, since $yh_i(y)>0$ for all $y\neq0$, the two integral terms $\int_0^{x_1}h_1(y)dy$ and $\int_0^{x_3}h_2(y)dy$ equals to 0 only at $x_1=0$ and $x_3=0$, respectively. Besides, the term $x_2^2/2$ equals to 0 only at $x_2=0$ as well. Thus, we have $V(x) = 0 \RA x=0$, which gives that $V(x) > 0, \forall x\in\R^3, x\neq0$. Hence, $V(x)$ is positive definite for all $x\in\R^3$.
+
+(c) Taking $V(x)$ the Lyapunov function candidate, from (b) we show that $V(x)$ is positive definite. This is equivalent to the existence of $\alpha_1,\alpha_2 \in \mathcal{K}$ such that 
+\begin{equation}
+        \alpha_1(\norm{x}) \leq V(x) \leq \alpha_2(\norm{x})
+\end{equation}
+Furthermore, since $h_2$ is locally Lipschitz functions, there exists a constant $L_2>0$ and a domain $D_2\subset\R^3$ such that
+\begin{equation}
+        \norm{h_2(x)-h_2(y)} \leq L_2\norm{x-y}, \forall x,y \in \mathcal{B}_r(x_0), \forall x_0\in D_2
+\end{equation}
+ Letting $x=0$ in the above equations and $L=\max\{L_2,1\}$, we have $\norm{h_2(y)}\leq L\norm{y}$. Thus we have 
+\begin{equation}
+        \begin{aligned}
+                \frac{\partial{V}}{\partial{x}}f(x) 
+                &= h_1(x_1)\dot{x}_2 + x_2\dot{x}_2 + h_3(x_3)\dot{x}_3 \\
+                &= h_1(x_1)x_2 + x_2(-h_1(x_1)-x_2-h_2(x_3)) + h_3(x_3)(x_2-x_3) \\
+                &= -x_2^2 - x_3h_2(x_3) \\
+                &\leq -Lx^2 \\
+                &\leq -\alpha_3(\norm{x})
+        \end{aligned}
+\end{equation}
+with $\alpha_3(r) = Lr^2 \in \mathcal{K}$. Hence, the origin is (locally) asymptotically stable. 
+
+(d) Note that we already have $\alpha_3 \in \mathcal{K}$. To show that the origin is globally asymptotically stable, we need $\alpha_1,\alpha_2 \in \mathcal{K}_{\infty}$. That is, $V(x)$ should be radially unbounded. Hence, the two integral terms $\int_0^{x_1}h_1(y)dy$ and $\int_0^{x_3}h_2(y)dy$ should tend to infinity $x_1\ra\infty$ and $x_3\ra\infty$ respectively. To conclude, the conditions on $h_1$ and $h_2$ are
+\begin{equation}
+        \lim_{y\ra\infty}\int_0^yh_i(y)dy = \infty, \quad i=1,2
+\end{equation}
+
+
+
+\vspace{3em}
+%% Exercise 2
+\tb{Exercise 2}
+(4.21 from \cite{c1}): A gradient system is a dynamical system of the form $\dot{x} = -\nabla V(x)$, where $\nabla V(x) = [\partial{V}/\partial{x}]^T$ and $V: D \subset \R^n \ra \R$ is twice continuously differentiable.
+\begin{enumerate}[itemsep=1pt, parsep=1pt, label=(\alph*)]
+        \item Show that $\dot{V}(x)\leq0$ for all $x \in D$, and $\dot{V}(x)=0$ if and only if $x$ is an equilibrium point.
+        \item Take $D=\R^n$. Suppose the set $\Omega_c = \{x\in\R^n | V(x)\leq c\}$ is compact for every $c\in\R$. Show that every solution of the system is defined for all $t\geq0$.
+        \item Continuing with part (b), suppose $\nabla V(x)\neq0$, except for a finite number of points $p_1,\dots,p_r$. Show that for every solution $x(t)$, $\lim_{t\ra\inf}x(t)$ exits and equals to one of the points $p_1,\dots,p_r$.
+\end{enumerate}
+
+\tb{Solution:}
+(a) According to the definition, we have 
+\begin{equation}
+        \dot{V}(x) = \frac{\partial{V}}{\partial{x}}\dot{x} = -(\nabla{V})^T(\nabla{V}) \leq 0
+\end{equation}
+Thus
+\begin{equation}
+        \dot{V}(x) = 0 \iff \nabla{V} = 0 \iff \dot{x}=0
+\end{equation}
+Hence, $\dot{V}(x)=0$ if and only if $x$ is an equilibrium point.
+
+(b) Denote $\dot{x}=f(x)$. Since $V(x)$ is twice continuously differentiable in $D = \R^n$, we have 
+\begin{equation}
+        \frac{\partial{f(x)}}{\partial{x}} = -\frac{\partial^2V}{\partial{x}}
+\end{equation}
+is continuous in $\R^n$. Thus, $f(x)$ is locally Lipschitz in $\R^n$. Further, for every solution $x_0 \in \Omega_c$, since $\dot{V}(x)\leq0$ in $D=\R^n$, we have $V(x) \leq V(x_0) \leq c$. That is, $V(x)$ lies in the same compact $\Omega_c$. Hence, according to Theorem 3.3 in \cite{c1}, there is a unique solution that is defined for all $t\geq0$.
+
+(c) Combining the results in (b) with LaSalle's invariance principle, $x(t)$ approaches $M=\{p_1,\dots,p_r\}$ as $t\ra\infty$. That is, given $\eps>0$, there exists a sequence $\{t_k\}$ such that $t_k\ra\infty$ as $k\ra\infty$ and $x(t_k) \in N(p,2\eps)$, where $p \in M$. Since $\eps$ can be sufficiently small in the statement and $p_1,\dots,p_r$ are isolated points, it implies that $x(t)$ approaches $p$ as $t\ra\infty$ for some $p\in M$.
+
+
+
+\vspace{3em}
+%% Exercise 3
+\tb{Exercise 3}
+(4.25 from \cite{c1}): Consider the linear system $\dot{x} = Ax+Bu$, where $(A,B)$ is controllable. Let $W = \int_0^\tau e^{-At}BB^Te^{-A^Tt}dt$ for some $\tau>0$. Show that $W$ is positive definite and let $K = B^T\inv{W}$. Use $V(x) = x^T\inv{W}x$ as a Lyapunov function candidate for the system $\dot{x} = (A-BK)x$ to show that $(A-BK)$ is Hurwitz.
+
+\tb{Solution:} (a) The controllability Gramian of the linear system is defined as 
+\begin{equation}\label{eq:Gramian}
+        W_c = \int_0^\tau e^{At}BB^Te^{A^Tt}dt
+\end{equation}
+for some $\tau>0$. Since the pair $(A,B)$ is controllable, according to Theorem 6.1 in \cite{c2}, $W_c$ is positive definite. Define $\xi = \tau-t$, then we have 
+\begin{equation}
+        \begin{aligned}
+                W_c &= \int_{\xi=\tau}^0 e^{A(\tau-\xi)}BB^Te^{A^T(\tau-\xi)}(-d\xi)    \\
+                &= \int_0^\tau e^{A\tau}e^{-A\xi}BB^Te^{-A^T\xi}e^{A^T\tau}d\xi \\
+                &= e^{A\tau}We^{A^T\tau}
+        \end{aligned}
+\end{equation}
+Hence, $W = e^{-A\tau}W_ce^{-A^T\tau}$ is positive definite.
+
+(b) To show $(A-BK)$ is Hurwitz, we need to show that all eigenvalues of $(A-BK)$ satisfy $\tn{Re}[\lambda]<0$, or equivalently, to show that the origin of the system $\dot{x}=(A-BK)x$ is asymptotically stable. 
+
+Note that 
+\begin{equation}
+        \begin{aligned}
+                AW+WA^T &= \int_0^\tau \{Ae^{-At}BB^Te^{-A^Tt} + e^{-At}BB^Te^{-A^Tt}A^T\}dt    \\
+                &= \int_0^\tau \frac{d}{dt}\{-e^{-At}BB^Te^{-A^Tt}\}dt        \\
+                &= -e^{-A\tau}BB^Te^{-A^T\tau} + BB^T
+        \end{aligned}
+\end{equation}
+Thus,
+\begin{equation}
+        \begin{aligned}
+                (A-BK)W + W(A-BK)^T &= AW+WA^T - BKW - WK^TB^T  \\
+                &= AW+WA^T - 2BB^T      \\
+                &= -e^{-A\tau}BB^Te^{-A^T\tau} - BB^T
+        \end{aligned}
+\end{equation}
+Use $V(x) = x^T\inv{W}x$ as a Lyapunov function, we have
+\begin{equation}\label{eq:dotV}
+        \begin{aligned}
+                \dot{V}(x) 
+                &= x^T(A-BK)^T\inv{W}x + x^T\inv{W}(A-BK)x      \\
+                &= x^T[(A-BK)^T\inv{W} + \inv{W}(A-BK)]x        \\
+                &= x^T\inv{W}[(A-BK)W + W(A-BK)^T]\inv{W}x      \\
+                &= -x^T\inv{W}(e^{-A\tau}BB^Te^{-A^T\tau} + BB^T)\inv{W}x
+        \end{aligned}
+\end{equation}
+Since $W$ is positive definite, $\inv{W}$ is also positive definite. Let $G=\inv{W}(e^{-A\tau}BB^Te^{-A^T\tau} + BB^T)\inv{W}$. Since the pair $(A,B)$ is controllable, it is trivial that $BB^T$ is definite positive. Thus, the matrix $G$ is positive definite. Hence, we have 
+\begin{equation}
+        \dot{V}(x) = -x^TGx < 0, \quad \forall x \neq 0
+\end{equation}
+Therefore, the origin of the system $\dot{x}=(A-BK)x$ is asymptotically stable. Hence, the matrix $(A-BK)$ is Hurwitz.
+
+%% Bibliography
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+        \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+        \bibitem{c2} C.T. Chen. \ti{Linear system theory and design}. Oxford University Press, Inc., USA, 1998.
+
+    
+\end{thebibliography}
+
+
+\end{document}

@@ -1,0 +1,178 @@
+\documentclass[a4 paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+%% preamble
+\input{preamble}
+
+%% title information
+\title{
+        \Large{DISC Course: Nonlinear Control Systems}\\
+        \vspace{1em}
+        \large\tb{Assignment 4}
+}
+\author{
+        \small Hai Zhu                          \\
+        \small Delft University of Technology   \\
+        \tt\small h.zhu@tudelft.nl
+ }
+\date{\small\ti{\today}}
+
+%% document
+\begin{document}
+%% title
+\maketitle
+
+
+%% Exercise 1
+\tb{Exercise 1} 
+
+\tb{Solution:} (a) Let $x = [x_1, x_2]^T = [q, \dot{q}]^T$, then we have
+\begin{align}
+        \dot{x}_1 &= x_2 \label{eq:1.x1} \\ 
+        \dot{x_2} &= \frac{1}{m}(-dx_2 - g + u) \label{eq:1.x2}
+\end{align}
+where $m = m(x_1)$, $d = d(x_1,x_2)$, $g = g(x_1)$ are functions describing the mass, damping and spring. The above equation can be written in the following state-space form
+\begin{align}
+        \dx &= f(x) + k(x)u = \mat x_2 \\ -\frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1)) \mate + \mat 0 \\ -\frac{1}{m(x_1)} \mate u \\
+        y &= h(x) = \mat 1 &0 \mate x
+\end{align}
+
+Lie derivatives
+\begin{align}
+        \mathcal{L}_fh(x) &= x_2 \\
+        \mathcal{L}_kh(x) &= 0 \\
+        \mathcal{L}_f^2h(x) &= -\frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1)) \\
+        \mathcal{L}_k\mathcal{L}_fh(x) &= -\frac{1}{m(x_1)}
+\end{align}
+Therefore, the system has uniform relative degree 2. Let 
+\begin{align}
+        \xi_1 &= h(x) = x_1 \\
+        \xi_2 &= \mathcal{L}_fh(x) = x_2
+\end{align}
+Find a coordinate $\eta_1 = \phi_1(x)$ such that $\mathcal{L}_k\phi_1(x)=0$, i.e., 
+\begin{equation}
+        \frac{\partial\phi_1}{\partial x}(x)k(x) = -\frac{\partial\phi_1}{\partial x_2}\frac{1}{m(x_1)} = 0
+\end{equation}
+A solution is $\eta_1 = \phi_1(x) = x_1$. Coordinate transformation
+\begin{equation}
+        T(x) = \mat \xi_1 \\ \xi_2 \\ \eta \mate = \mat h(x) \\ L_fh(x) \\ \phi_1(x) \mate = \mat x_1 \\ x_2 \\ x_1 \mate
+\end{equation}
+Normal form
+\begin{align}
+        \dot{\xi}_1 &= \xi_2 \\
+        \dot{\xi}_2 &= -\frac{1}{m(\xi_1)}(d(\xi_1,\xi_2)+g(\xi_1)) + \frac{1}{m(\xi_1)}u \\
+        \dot{\eta_1} &= \xi_1
+\end{align}
+
+
+(b) In equation (\ref{eq:1.x1}), let 
+\begin{equation}
+        x_2 = -x_1 \defeq k_1(x_1)
+\end{equation}
+Take $V_1(x_1) = \half x_1^2$ as the Lyapunov function candidate, then $\dot{V_1}(x_1) = x_1\dx_1 = -x_1^2$. Thus, the feedback control law stabilizes the system described by equation (\ref{eq:1.x1}). 
+
+Let $w_1 = x_2 - k_1(x_1)$, then 
+\begin{align}
+        \dx_1 &= x_2 = w_1 + k_1(x_1) = -x_1 + w_1 \\
+        \dot{w}_1 &= \dx_2 - \dot{k}_1(x_1) = -\frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1)) + \frac{1}{m(x_1)}u + x_2
+\end{align}
+Take $V(x) = V(x_1,w_1) = V_1(x_1) + \half w_1^2 = \half x_1^2 + \half w_1^2$, then 
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x_1,w_1) &= x_1\dx_1 + w_1\dot{w}_1 \\
+                &= x_1(-x_1+w_1) + w_1(-\frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1))+\frac{1}{m(x_1)}u+x_2) \\
+                &= -x_1^2 + w_1(x_1-\frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1))+\frac{1}{m(x_1)}u+x_2)
+        \end{aligned}
+\end{equation}
+Let 
+\begin{equation}\label{eq:1.u}
+        \begin{aligned}
+                u &= m(x_1)(-x_2 + \frac{1}{m(x_1)}(d(x_1,x_2)x_2+g(x_1)) -x_1 - c_1w_1) \\
+                &= -m(x_1)(c_1+1)(x_1+x_2) + d(x_1,x_2)x_2 + g(x_1) \\
+                &\defeq \alpha(x)
+        \end{aligned}
+\end{equation}
+where $c_1 > 0$. Thus
+\begin{equation}
+        \dot{V}(x_1,w_1) = -x_1^2 - c_1w_1^2 \leq 0
+\end{equation}
+Therefore, the feedback law (\ref{eq:1.u}) stabilizes the origin of the nonlinear system.
+
+
+%% Exercise 2
+\tb{Exercise 2} 
+
+\tb{Solution:} (a) The nonlinear system is described as
+\begin{align}
+        \dx_1 &= x_1^3 + x_2 \label{eq:2.dx1} \\
+        \dx_2 &= x_2 + x_1 + u \label{eq:2.dx2}
+\end{align}
+In equation (\ref{eq:2.dx1}), Let
+\begin{equation}\label{eq:2.k1}
+        x_2 = -2x_1^3 \defeq k_1(x_1)
+\end{equation}
+Take $V_1(x_1) = \quater x_1^4$ as the Lyapunov function, then
+\begin{equation}
+        \begin{aligned}
+                \dot{V}_1(x_1) &= x_1^3\dx_1 = x_1^3(x_1^3-2x_1^3) = -x_1^6 \leq 0
+        \end{aligned}
+\end{equation}
+Thus, the feedback law (\ref{eq:2.k1}) stabilize the system (\ref{eq:2.dx1}).
+
+Let $w_1 = x_2 - k_1(x_1) = x_2 + 2x_1^3$, then we have
+\begin{align}
+        \dx_1 &= x_1^3+x_2 = -x_1^3 + w_1 \\
+        \dot{w}_1 &= \dx_2+6x_1^2\dx_1 = -6x_1^5 + 6x_1^2w_1 + x_2 + x_1 + u
+\end{align}
+Take $V(x) = V(x_1,w_1) = V_1(x_1) + \half w_1^2 = \quater x_1^4 + \half w_1^2$ as the Lyapunov function candidate, then
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x_1,w_1) &= x_1^3\dx_1 + \dot{w}_1w_1 \\
+                &= x_1^3(-x_1^3+w_1) + w_1(-6x_1^5 + 6x_1^2w_1 + x_2 + x_1 + u) \\
+                &= -x_1^6 + w_1(x_1^3 - 6x_1^5 + 6x_1^2w_1 + x_1 + x_2 + u)
+        \end{aligned}
+\end{equation}
+Let 
+\begin{equation} \label{eq:2.u}
+        \begin{aligned}
+                u &= -x_1^3 + 6x_1^5 - 6x_1^2w_1 - x_1 - x_2 - w_1 \\
+                &= -6x_1^5 - 3x_1^3 - 6x_1^2x_2 - x_1 -2x_2 \\
+                &\defeq \alpha(x)
+        \end{aligned}
+\end{equation}
+then
+\begin{equation}
+        \dot{V}(x_1,w_1) = -x_1^6 - w_1^2 \leq 0
+\end{equation}
+which implies that feedback law (\ref{eq:2.u}) stabilizes the given nonlinear system.
+
+(b) Let $d = [d_1,d_2]^T, x = [x_1, w_1]^T$, considering the uncertainty in the system and base on the results in (a), we have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x_1,w_1) &= x_1^3\dx_1 + \dot{w}_1w_1 \\
+                &= -x_1^6 - w_1^2 + x_1^3d_1 + w_1(d_2 + 6x_1^2d_1) \\
+                &= -x_1^6 - w_1^2 + x_1^3d_1 + w_1d_2 + 6x_1^2w_1d_1 \\
+                &\leq -x_1^6 - w_1^2 + (\frac{x_1^6}{2} + \frac{d_1^2}{2}) + (\frac{w_1^2}{4} + d_2^2) + (\frac{w_1^2}{2} + \frac{x_1^6}{3} + 6^5d_1^6) \\
+                &= -\frac{1}{6}x_1^6 - \frac{1}{4}w_1^2 + (\half+6^5)d_1^2 + d_2^2 \\
+                &\leq -\gamma_1(\norm{x}) + \gamma_2(\norm{d})
+        \end{aligned}
+\end{equation}
+where $\gamma_1(z) = \frac{1}{6}z^6$, $\gamma_2(z) = (\half+6^5)z^2 $
+and $\gamma_1, \gamma_2 \in \mathcal{K}_\infty $. 
+
+Hence, with the feedback control law $u = \alpha(x)$, the closed-loop system is ISS with respect to $d_1$ and $d_2$.
+
+
+%% Bibliography
+% \bibliographystyle{plain}
+% \begin{thebibliography}{99}
+
+%         \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+%         \bibitem{c2} C.T. Chen. \ti{Linear system theory and design}. Oxford University Press, Inc., USA, 1998.
+
+    
+% \end{thebibliography}
+
+
+\end{document}

@@ -1,0 +1,590 @@
+% DISC Course - Homework 1
+
+\section{Homework 1}
+\subsection{Chapter 1}
+\subsubsection{Exercise 1.9}
+\tb{Solution: }
+The equations which constitute the full behavioral equations of the circuit are as follows:
+
+Constitutive equations:
+\begin{equation}\label{eq:cons1.9}
+    L_1\frac{dI_{L_1}}{dt} = V_{L_1}, \quad
+    L_2\frac{dI_{L_2}}{dt} = V_{L_2}, \quad
+    C_1\frac{dV_{C_1}}{dt} = I_{C_1}, \quad
+    C_2\frac{dV_{C_2}}{dt} = I_{C_2}; 
+\end{equation}
+
+Kirchhoff ’s current laws:
+\begin{equation}\label{eq:cur1.9}
+    I = I_{L_1} + I_{L_2}, \quad
+    I_{L_1} = I_{C_1}, \quad
+    I_{L_2} = I_{C_2}, \quad
+    I_{C_1} + I_{C_2} = I; 
+\end{equation}
+
+Kirchhoff ’s voltage laws:
+\begin{equation}\label{eq:vol1.9}
+    V = V_{L_1} + V_{C_1}, \quad
+    V = V_{L_2} + V_{C_2}, \quad
+    V_{L_1} + V_{C_1} = V_{L_2} + V_{C_2}. 
+\end{equation}
+
+Next, we attempt to eliminate the latent variables in order to come up with an explicit relation involving $V$ and $I$ only. For simplicity, we denote $\dot{x} = \frac{dx}{dt}$ the derivative of variable $x$. Thus equation (\ref{eq:cons1.9}) can be written as
+\begin{equation}
+    L_1\dot{I}_{L_1} = V_{L_1}, \quad
+    L_2\dot{I}_{L_2} = V_{L_2}, \quad
+    C_1\dot{V}_{C_1} = I_{C_1}, \quad
+    C_2\dot{V}_{C_2} = I_{C_2} 
+\end{equation}
+First, we use equation (\ref{eq:cons1.9}) to eliminate $V_{L_1},V_{L_2},I_{C_1}$ and $I_{C_2}$. Then we obtain
+\begin{align}
+    V = L_1\dot{I}_{L_1} + V_{C_1}, \\
+    V = L_2\dot{I}_{L_2} + V_{C_2}, \\
+    I_{L_1} = C_1\dot{V}_{C_1},     \\
+    I_{L_2} = C_2\dot{V}_{C_2},     \\
+    I = I_{L_1} + I_{L_2}.
+\end{align}
+Next, we further eliminate $V_{C_1}$ and $V_{C_2}$, which gives
+\begin{align}
+    \dot{V} = L_1\ddot{I}_{L_1} + \frac{I_{L_1}}{C_1},\label{eq:dV1.9}  \\
+    \dot{V} = L_2\ddot{I}_{L_2} + \frac{I_{L_2}}{C_2},\label{eq:dV21.9}  \\
+    I_{L_1} = I - I_{L_2}.\label{eq:IL11.9}
+\end{align}
+Use equation (\ref{eq:IL11.9}) in (\ref{eq:dV1.9}) to obtain
+\begin{eqnarray}\label{eq:dV31.9}
+    \dot{V} = L_1\ddot{I} - L_1\ddot{I}_{L_2} + \frac{1}{C_1}(I-I_{L_2})
+\end{eqnarray}
+Combining equation (\ref{eq:dV21.9}) and (\ref{eq:dV31.9}) to eliminate $\ddot{I}_{L_2}$, we can obtain
+\begin{equation}\label{eq:mani1.9}
+    (\frac{L_1}{C_2} - \frac{L_2}{C_1})I_{L_2} = (L_1+L_2)\dot{V} - L_1L_2\ddot{I} - \frac{L_2}{C_1}I
+\end{equation}
+Now, we should consider two cases:
+
+\tb{Case 1:} $\frac{L_1}{C_2} = \frac{L_2}{C_1}$. Then equation (\ref{eq:mani1.9}) immediately yields
+\begin{equation}\label{eq:case11.9}
+    (L_1+L_2)\dot{V} = L_1L_2\ddot{I} + \frac{L_2}{C_1}I
+\end{equation}
+as the relation between $V$ and $I$.
+
+\tb{Case 2:} $\frac{L_1}{C_2} \neq \frac{L_2}{C_1}$. Solve (\ref{eq:mani1.9}) for $I_{L_2}$ and substitute into (\ref{eq:dV21.9}). Then we can obtain
+\begin{equation}\label{eq:case21.9}
+    C_1C_2(L_1+L_2)\dddot{V} + (C_1+C_2)\dot{V} = L_1L_2C_1C_2\ddddot{I} + (L_1C_1+L_2C_2)\ddot{I} + I
+\end{equation}
+as the relation between $V$ and $I$.
+
+We claim that equations (\ref{eq:case11.9}, \ref{eq:case21.9}) specify the manifest behavior defined by the full behavioral equations (\ref{eq:cons1.9}, \ref{eq:cur1.9}, \ref{eq:vol1.9}).
+
+
+\subsection{Chapter 2}
+\subsubsection{Exercise 2.3}
+\tb{Solution: }(a) Recall that the differential equation relating the port voltage V to the port current I is 
+\begin{equation}
+    V + CR_1\diff{V} = (R_0+R_1)I + CR_0R_1\diff{I}
+\end{equation}
+Let $R_0=R_1=1$ and $C=1$. Then the differential equation becomes
+\begin{equation}\label{eq:diff2.3}
+    V + \diff{V} = 2I + \diff{I}
+\end{equation}
+Integrate both sides of the above differential equation and we can obtain
+\begin{equation}\label{eq:int2.3}
+    (\int V) + V = 2(\int I) + I
+\end{equation}
+where $\int \cdot$ is defined by $(\int w)(t) = \int_0^t w(\tau)d\tau$. With the port voltage 
+\begin{equation}
+    V(t) = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    1 \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+and the current 
+\begin{equation}
+    I(t) = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    \half + \half e^{-2t} \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+which are not differentiable at $t=0$. However, it is easy to validate that they satisfy the integration equation (\ref{eq:int2.3}). Hence, They yield a weak solution of (\ref{eq:diff2.3}).
+
+(b) With the current
+\begin{equation}
+    I(t) = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    1 \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+we can obtain from equation (\ref{eq:int2.3}) that 
+\begin{equation}
+    (\int V) + V = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    2t+1 \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+Analogously, assume the port voltage is in the following form
+\begin{equation}
+    V(t) = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    a+be^{ct} \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+Then when $t\geq0$ we have 
+\begin{equation}
+    \int V = at + \frac{b}{c}e^{ct} - \frac{b}{c}
+\end{equation}
+which yields
+\begin{equation}
+    at + \frac{b}{c} - \frac{b}{c}e^{ct} + a+be^{ct} = 2t + 1
+\end{equation}
+Therefore,
+\begin{equation}
+    \begin{cases}
+        a = 2   \\
+        \frac{b}{c} + b = 0     \\
+        -\frac{b}{c} + a = 1
+    \end{cases}
+\end{equation}
+Solving the above equation yields
+\begin{equation}
+    \begin{cases}
+        a = 2   \\
+        b = -1     \\
+        c = -1
+    \end{cases}
+\end{equation}
+Hence, then the port voltage can be easily obtained as follows
+\begin{equation}
+    V(t) = 
+    \begin{cases}
+    0 \quad  &t<0    \\
+    2-e^{-t} \quad  &t\geq0   
+    \end{cases}
+\end{equation}
+
+
+\subsubsection{Exercise 2.5}
+\tb{Solution: } (a) Let $V(\xi)$ be a unimodular matrix such that
+\begin{equation}\label{eq:V2.5}
+    \mat 2-3\xi+\xi^2  & 6-5\xi+\xi^2  & 12-7\xi+\xi^2  \mate V(\xi)  = \mat 0 &0 &1 \mate
+\end{equation}
+Then we can obtain
+\begin{equation}
+    V(\xi) = 
+    \mat
+    -\half{\xi^2} + \frac{3}{2}\xi & \xi-3 &\half   \\
+    \xi^2-3\xi+2    & 5-2\xi    &-1 \\
+    -\half\xi^2+\frac{3}{2}\xi-1 &\xi-2 &\half
+    \mate
+\end{equation}
+Hence, we have
+\begin{equation}
+    U(\xi) = V^{-1}(\xi)
+    \mat
+    1 & 1 &1   \\
+    0    & 1    &2 \\
+    2-3\xi+\xi^2  & 6-5\xi+\xi^2  & 12-7\xi+\xi^2
+    \mate
+\end{equation}
+
+(b) From equation (\ref{eq:V2.5}), we have
+\begin{equation}
+    \mat r_1(\xi) & r_2(\xi) & r_3(\xi) \mate \mat V_{13} \\ V_{23} \\ V_{33} \mate = 1
+\end{equation}
+Hence, the polynomials to be determined are
+\begin{equation}
+    a_1(\xi) = \half,\quad a_2(\xi) = -1, \quad a_3(\xi) = -\half
+\end{equation}
+
+
+\subsubsection{Exercise 2.7}
+\tb{Solution: } The corresponding polynomial matrix of the differential equations is
+\begin{equation}
+    P(\xi) = \mat -1+\xi^2   & 1+\xi \\ -\xi + \xi^2 & \xi \mate
+\end{equation}
+Multiplying by $\xi$ and then subtracting $\xi+1$ times the second row from the first yields
+\begin{equation}\label{eq:rank2.7}
+    \mat 0 &0 \\ -\xi + \xi^2 & \xi \mate
+\end{equation}
+Therefore, the original differential system is not a full rank representation. The equivalent full rand representation can be obtained from (\ref{eq:rank2.7}) as follows
+\begin{equation}
+    -\diff{w_1} + \ddiff{w_1} + \diff{w_2} = 0.
+\end{equation}
+
+
+\subsubsection{Exercise 2.12}
+\tb{Solution: }
+
+
+\subsubsection{Exercise 2.25}
+\tb{Solution: } Consider $v_1(\xi) = \mat \xi &\xi^2 \mate^T $, $v_2(\xi) = \mat 1+\xi &\xi+\xi^2 \mate^T$ and $a_1(\xi) = \xi+1$, $a_2(\xi) = -\xi$. Then it is trivial to obtain that
+\begin{equation}
+    a_1(\xi)v_1(\xi) + a_2(\xi)v_2(\xi) = 0
+\end{equation}
+Thus, the two polynomial vectors $v_1(\xi)$ and $(\xi)$ are linear dependent. However, there is no common factor except $1$ of the two vectors. Therefore, one of them cannot be written as a linear combination of another. Hence, this example indicates that the property for real vectors is not true for polynomials.
+
+
+\subsection{Chapter 3}
+\subsubsection{Exercise 3.1}
+\tb{Solution: }The corresponding polynomial of the differential equation is
+\begin{equation}\label{eq:poly3.1}
+    P(\xi) = -32 + 22\xi^2 + 9\xi^3 + \xi^4 = (\xi+4)^4(\xi+2)(\xi-1)
+\end{equation}
+Hence, the solution of (\ref{eq:poly3.1}) can be written as
+\begin{equation}
+    w(t) = r_{10}e^{t} + r_{20}e^{-2t} + r_{40}e^{-4t} + r_{41}e^{-4t}
+\end{equation}
+where the coefficients are completely free, $r_{ij} \in \C$.
+
+\subsubsection{Exercise 3.6}
+\tb{Solution: }(a) The matrix $P(\xi)$ is given by
+\begin{equation}
+    P(\xi) = \mat
+    1+\xi^2  & -3-\xi+\xi^2+\xi^3 \\
+    1-\xi   & -1+\xi
+    \mate
+\end{equation}
+
+(b) We have
+\begin{equation}
+    \det{P(\xi)} = (\xi-1)^2(\xi+1)(\xi+2)
+\end{equation}
+Hence, the root of $\det{P(\xi)}$ are $1, -1, -2$ with multiplicities $2,~1 ~\tn{and}~ 1$ respectively.
+
+(c) According to Theorem 3.2.16, every (strong) solution of the differential system is of the following form
+\begin{equation}
+    w(t) = B_{10}e^t + B_{11}te^t + B_{20}e^{-t} + B_{30}e^{-2t}
+\end{equation}
+where the coefficients $B_{ij} \in \C^2$ satisfy the relations
+\begin{align}
+    P(1)B_{10} + P^{(1)}(1)B_{11} &= 0 \label{eq:c13.6}   \\  
+    P(1)B_{11} &= 0 \label{eq:c23.6}\\
+    P(-1)B_{20} &= 0 \label{eq:c33.6}\\
+    P(-2)B_{30} &= 0 \label{eq:c43.6}
+\end{align}
+According to (\ref{eq:c23.6}), we have
+\begin{equation}
+    \mat 2 &-2 \\ 0 &0 \mate B_{11} = 0
+\end{equation}
+which yields $B_{11} = \mat \alpha_2 &\alpha_2 \mate^T$. Substituting $B_{11}$ into (\ref{eq:c13.6}) we can obtain $B_{10} = \mat \alpha_1 - 3\alpha_2 &\alpha_1 \mate^T$. Similarly, it is easy to solve equation (\ref{eq:c33.6}) and (\ref{eq:c43.6}) to obtain $B_{30} = \mat \gamma &\gamma \mate^T$ and $B_{40} = \mat \beta &\beta \mate^T$. Thus, every (strong) solution can be written as 
+\begin{equation}
+    w(t) = \mat \alpha_1 - 3\alpha_2 \\ \alpha_1 \mate e^t + \mat \alpha_2 \\ \alpha_2 \mate te^{t} + \mat \beta \\ \beta \mate e^{-t} + \mat \gamma \\ \gamma \mate e^{-2t}
+\end{equation}
+where $\alpha_1, \alpha_2, \beta, \gamma \in \C$.
+
+
+\subsubsection{Exercise 3.20}
+\tb{Solution: } (a) The roots of $p(\xi) = \xi(\xi-1)^2$ are 1 and 0 with multiplicities 2 and 1 respectively. Therefore, according to Theorem 3.3.7, we have 
+\begin{equation}
+    \frac{q(\xi)}{p(\xi)} = \frac{a_{11}}{\xi} + \frac{a_{21}}{\xi-1} + \frac{a_{22}}{(\xi-1)^2}
+\end{equation}
+where the coefficients $a_{ij}$ can be calculated as follows
+\begin{align}
+    a_{11} &= \lim_{\xi\ra 0}\xi\frac{q(\xi)}{p(\xi)} = \lim_{\xi\ra 0}\frac{-1+\xi^2}{(\xi-1)^2} = -1 \\
+    a_{21} &= \lim_{\xi\ra 1}(\xi-1)\frac{q(\xi)}{p(\xi)} = \lim_{\xi\ra 1}\frac{-1+\xi^2}{\xi(\xi-1)} = 2 \\
+    a_{22} &= \lim_{\xi\ra 1}(\xi-1)^2\frac{q(\xi)}{p(\xi)} = \lim_{\xi\ra 1}\frac{-1+\xi^2}{\xi} = 0
+\end{align}
+Hence, the partial fraction expansion of $\frac{q(\xi)}{p(\xi)}$ is
+\begin{equation}
+    \frac{q(\xi)}{p(\xi)} = -\frac{1}{\xi} + \frac{2}{\xi-1}
+\end{equation}
+
+(b) According to Theorem 3.3.19, we have 
+\begin{equation}
+    \B = \B_{\tn{i/o}} + \B_{\tn{hom}}
+\end{equation}
+where $\B_{\tn{hom}} = {(0,y_{\tn{hom}})}$ and 
+\begin{equation}
+    y_\tn{hom} = B_{10} + B_{20}e^t + B_{21}te^t, \quad t\in\R
+\end{equation}
+in which $B_{ij} \in \C$. Further, the explicit characterization of $\B_\tn{i/o}$ is 
+\begin{equation}
+    \begin{aligned}
+        y_\tn{i/o} &= A_0u(t) + A_{11}\int_0^tu(\tau)d\tau + A_{21}\int_0^t e^{t-\tau}u(\tau)d\tau + A_{22}\int_0^t(t-\tau)e^{t-\tau}u(\tau)d\tau \\
+        &= -\int_0^tu(\tau)d\tau + 2\int_0^te^{t-\tau}u(\tau)d\tau, \quad t\in\R
+    \end{aligned}
+\end{equation}
+Hence, the explicit characterization of $\B$ is 
+\begin{equation}
+    y(t) = -\int_0^tu(\tau)d\tau + 2\int_0^te^{t-\tau}u(\tau)d\tau + B_{10} + B_{20}e^t + B_{21}te^t, \quad t\in\R
+\end{equation}
+
+(c) Similar with (a), we can determine the the partial fraction expansion of $\frac{\tilde q(\xi)}{\tilde p(\xi)}$, which is 
+\begin{equation}
+    \frac{\tilde q(\xi)}{\tilde p(\xi)} = -\frac{1}{\xi} + \frac{2}{\xi-1}
+\end{equation}
+Note that it is the same as $\frac{q(\xi)}{p(\xi)}$. That is, $\frac{\tilde q(\xi)}{\tilde p(\xi)} = \frac{q(\xi)}{p(\xi)}$.
+
+(d) Similar with (b), the explicit characterization of the behavior $\tilde\B$ is given as
+\begin{equation}
+    y(t) = -\int_0^tu(\tau)d\tau + 2\int_0^te^{t-\tau}u(\tau)d\tau + \tilde B_{10} + \tilde B_{20}e^t, \quad t\in\R
+\end{equation}
+where $\tilde B_{10}, \tilde B_{20} \in \C$.
+
+(e) Explicitly, in terms of the $y_\tn{hom}$ characterization in $\B_\tn{hom}$ and $\tilde B_\tn{hom}$, $\B_\tn{hom}$ consists of an extra term $te^t$.
+
+(f) According to Theorem 3.5.2, the convolution system is given by
+\begin{equation}
+    y(t) = \int_{-\infty}^t H(t-\tau)u(\tau)d\tau
+\end{equation}
+where 
+\begin{equation}
+    H(t) = 
+    \begin{cases}
+        0 \quad &t < 0 \\
+        -1+2e^t \quad &t\geq 0
+    \end{cases}
+\end{equation}
+
+
+\subsubsection{Exercise 3.22}
+\tb{Solution: } (a) The corresponding polynomial matrix of the set of differential equations is given by 
+\begin{equation}
+    P(\xi) = \mat 6-5\xi+\xi^2 &-3+\xi \\ 2-3\xi+\xi^2 &-1+\xi \mate
+\end{equation} 
+Thus, we have
+\begin{equation}
+    \det{P(\xi)} = (6-5\xi+\xi^2)(-1+\xi) - (-3+\xi)(2-3\xi+\xi^2) = 0
+\end{equation}
+Hence, the set of differential equations does NOT define an autonomous system.
+
+(b) By performing elementary row operations, we can obtain
+\begin{equation}
+    U(\xi)P(\xi) = \mat -2+\xi &1 \\ 0 & 0 \mate
+\end{equation}
+where the unimodular matrix $U(\xi)$ is 
+\begin{equation}
+    U(\xi) = \mat -\half & \half \\ -\half+\half\xi & \frac{3}{2}-\half\xi \mate
+\end{equation}
+Denote $P^\prime(\xi) = \mat -2+\xi &1 \mate $. Then the minimal representation of the differential system is $P^\prime(\diff)w = 0$. Further, let $\tilde P(\xi) = -2+\xi$ and $\tilde Q(\xi) = -1$. Then we can write the input/out representation of the original system as 
+\begin{equation}
+    \tilde P(\diff)w_1 = \tilde Q(\diff)w_2
+\end{equation} 
+Hence, the explicit characterization of the behavior is 
+\begin{equation}
+    w_1(t) = -\int_0^te^{2(t-\tau)}w_2(\tau)d\tau, \quad t\in\R.
+\end{equation}
+
+
+\subsubsection{Exercise 3.36}
+\tb{Solution: } 
+(a) Denote $x(\xi)\in\R^g[\xi]$ an arbitrary polynomial vector, then we have
+\begin{equation}
+    x^T(\xi)R_2(\xi)R_2^T(\xi)x(\xi) = (R_2^T(\xi)x(\xi))^T(R_2^T(\xi)x(\xi))\geq 0
+\end{equation}
+where the equality to zero is satisfied if and only if
+\begin{equation}
+    (R_2^T(\xi)x(\xi))^T(R_2^T(\xi)x(\xi)) = 0 \iff R_2^T(\xi)x(\xi) = 0
+\end{equation}
+In addition, since $R_2(\xi)$ is full of row rank, $R_2^T(\xi)$ is full of column rank and the above equations yield to 
+\begin{equation}
+    x^T(\xi)R_2(\xi)R_2^T(\xi)x(\xi) = 0 \iff x(\xi) = 0
+\end{equation}
+which indicates that $R_2(\xi)R_2^T(\xi)$ is non-singular. Hence, $\det{R_2(\xi)R_2^T(\xi)} \neq 0$, and $R_2(\xi)R_2^T(\xi)$ is invertible as a rational matrix.
+
+(b) Since $R_2(\xi)R_2^T(\xi)$ is invertible as a rational matrix, we have
+\begin{equation}
+    R_2(\xi)R_2^T(\xi)(R_2(\xi)R_2^T(\xi))^{-1} = I_g
+\end{equation}
+Thus, 
+\begin{equation}
+    R_2(\xi)[R_2^T(\xi)(R_2(\xi)R_2^T(\xi))^{-1}] = I_g
+\end{equation}
+Denote $R_2^\star(\xi) = R_2^T(\xi)(R_2(\xi)R_2^T(\xi))^{-1}$, then we have $R_2(\xi)R_2^\star(\xi) = I_g$.
+
+(c) Since $\B_1=\B_2$, there exists a polynomial unimodular matrix $U(\xi)\in\R^{g\times g}[\xi]$ such that $U(\xi)R_2(\xi)=R_1(\xi)$. Therefore, 
+\begin{equation}
+    R_1(\xi)R_2^\star(\xi) = U(\xi)R_2(\xi)R_2^\star(\xi) = U(\xi)
+\end{equation}
+which shows that $R_1(\xi)R_2^\star(\xi)$ is a polynomial unimodular matrix.
+
+(d) Let 
+\begin{equation}
+    R_1(\xi) = \mat \xi &1-\xi^2 \mate, \quad R_2(\xi) = \mat \xi &1 \mate
+\end{equation}
+then we have
+\begin{equation}
+    R_1(\xi)R_2^\star(\xi) = R_1(\xi)R_2^T(\xi)(R_2(\xi)R_2^T(\xi))^{-1}=1
+\end{equation}
+is a polynomial unimodular matrix. However, $\B_1\neq\B_2$. This simple example shows that if $R_1(\xi)R_2^\star(\xi)$ is a polynomial unimodular matrix, then we need not have that $\B_1\neq\B_2$.
+
+(e) Sufficiency: If $R_1(\xi)R_2^\star(\xi)$ is a polynomial unimodular matrix $U(\xi)$ and $R_1(\xi) = R_1(\xi)R_2^\star(\xi)R_2(\xi)$, we have
+\begin{equation}
+    R_1(\xi) = R_1(\xi)R_2^\star(\xi)R_2(\xi) = U(\xi)R_2(\xi)
+\end{equation}
+According to Theorem 3.6.3, we have $\B_1 = \B_2$.
+
+Necessity: If $\B_1 = \B_2$, then the result in (c) shows that $R_1(\xi)R_2^\star(\xi)$ is a polynomial unimodular matrix $U(\xi)$. In addition, we have
+\begin{equation}
+    R_1(\xi)R_2^\star(\xi)R_2(\xi) = U(\xi)R_2(\xi) = R_1(\xi)
+\end{equation} 
+which completes the proof.
+
+(f) First, we compute
+\begin{equation}
+    R_1(\xi)R_2^\star(\xi) = \mat 1 &\xi \\ 0 &1 \mate
+\end{equation}
+which is a polynomial unimodular matrix. In addition, we have
+\begin{equation}
+    R_1(\xi)R_2^\star(\xi)R_2(\xi) = \mat 1+\xi^2 &\xi &1+\xi \\ \xi &0 &1 \mate = R_1(\xi)
+\end{equation}
+Hence, according to the result of (e), we prove that $\B_1 = \B_2$.
+
+
+\subsection{Additional Exercise}
+\tb{Solution: } 
+(a) According to Theorem 2.5.14, we can assume $P(\xi)$ in the following form
+\begin{equation}
+    P(\xi) = \mat \alpha_1(\xi) &\alpha_2(\xi) \\ 0 &\alpha_3(\xi) \mate
+\end{equation}
+where $\alpha_i \in \R[\xi], ~i=1,2,3$. Further, we have, according to Theorem 3.2.15,
+\begin{align}
+    \det{P(\xi)} = \alpha_1(\xi)\alpha_3(\xi) &= (\xi-1)(\xi-2) \\
+    P(1)\mat 1 \\ 2 \mate &= 0 \\
+    P(-2)\mat 3 \\ 4 \mate &= 0
+\end{align}
+which can be satisfied given $\alpha_1(\xi) = 1$ and $\alpha_3(\xi) = (\xi-1)(\xi-2)$. Assume $\alpha_2(\xi) = a + b\xi$, then we can determine $a$ and $b$ by the above equations, which are $a=-\frac{7}{12}$ and $b = \frac{1}{12}$. Hence, we have 
+\begin{equation}\label{eq:p11.4}
+    P(\xi) = \mat 1 &-\frac{7}{12}+\frac{1}{12}\xi \\ 0 &-2+\xi+\xi^2 \mate
+\end{equation}
+whose degree is $n=2$. In addition, we can easily check that the behavior defined by (\ref{eq:p11.4}) is already as small as possible; therefore, it is the Most Powerful Unfalsified Model.
+
+(b) Similarly, by assuming $P(\xi)$ the same form as in (a), we have
+\begin{align}
+    \det{P(\xi)} = \alpha_1(\xi)\alpha_3(\xi) &= (\xi-1)(\xi-2)(\xi+2) \\
+    P(1)\mat 1 \\ 2 \mate &= 0 \\
+    P(-2)\mat 3 \\ 4 \mate &= 0 \\
+    P(2)\mat 1 \\ 0 \mate &=0
+\end{align}
+which can be satisfied given $\alpha_1(\xi) = \xi-2$ and $\alpha_3(\xi) = (\xi-1)(\xi+2)$. Similarly, assume $\alpha_2(\xi) = a + b\xi$, then we can determine $a$ and $b$ by the above equations, which are $a=\frac{4}{3}$ and $b = -\frac{5}{6}$. Hence, we have 
+\begin{equation}\label{eq:p11.4}
+    P(\xi) = \mat \xi-2 &\frac{4}{3}-\frac{5}{6}\xi \\ 0 &-2+\xi+\xi^2 \mate
+\end{equation}
+which is the Most Powerful Unfalsified Model.
+
+
+\subsection{Simulation Exercise}
+\subsubsection{A.3 Autonomous Dynamics of Coupled Masses}
+\tb{Solution: }
+(1) The equations that describe the behavior of the system are
+\begin{align}
+    M\ddot{w_1} + k_1w_1 + k_2(w_1 - w_2) &= 0 \\
+    M\ddot{w_2} + k_1w_2 + k_2(w_2 - w_1) &= 0
+\end{align}
+Let $M=1$, then can rewrite the above equations in the form $P(\diff)w=0$ as follows
+\begin{equation}
+    \mat \xi^2 + k_1 + k2   & -k_2  \\  -k_2   & \xi^2+k_1+k_2 \mate
+    \mat w_1 \\ w_2 \mate = 0
+\end{equation}
+Hence, we have
+\begin{equation}
+    P(\xi) = \mat \xi^2 + k_1 + k2   & -k_2  \\  -k_2   & \xi^2+k_1+k_2 \mate
+\end{equation}
+
+(2) According to (1), we have 
+\begin{equation}
+    \begin{aligned}
+        \det{P(\xi)} &= \xi^4 + 2(k_1+k_2)\xi^2 + k_1^2 + 2k_1k_2 \\
+        &= (\xi+i\sqrt{k_1})(\xi-i\sqrt{k_1})(\xi+i\sqrt{k_1+2k_2})(\xi-\sqrt{k_1+2k_2})
+    \end{aligned}
+\end{equation}
+which is the characteristic polynomial of the system. Let $\det{P(\xi)} = 0$, then we can solve to obtain
+\begin{align}
+    \lambda_1 &= i\sqrt{k_1},\hspace{2.07cm}n_1 = 1 \\
+    \lambda_2 &= -i\sqrt{k_1}, \hspace{1.75cm}n_2 = 1 \\
+    \lambda_3 &= i\sqrt{k_1+2k_2}, \hspace{1cm}n_3 = 1 \\
+    \lambda_4 &= -i\sqrt{k_1+2k_2},\hspace{0.68cm}n_4 = 1
+\end{align}
+which are the characteristic values of the system.
+
+(3) According to Theorem 3.3.16, the trajectories in the behavior of the system can be written in the following general form
+\begin{equation}
+    w(t) = \sum_{i=1}^N\sum_{j=0}^{n_i-1}B_{ij}t^je^{\lambda_it}
+\end{equation}
+where $B_{ij}\in\C^2$ satisfy the relations
+\begin{equation}
+    \sum_{j=l}^{n_i-1}\begin{pmatrix}j\\l\end{pmatrix}P^{(j-l)}(\lambda_i)B_{ij} = 0, i = 1, \dots, N; l = 0, \dots, n_i-1
+\end{equation}
+Substituting the results in (2) into the above two equations, we can obtain
+\begin{align}
+    B_{10} &= [r_1, r_1]^T \\
+    B_{20} &= [r_2, r_2]^T \\
+    B_{30} &= [r_3, -r_3]^T\\
+    B_{40} &= [r_4, -r_4]^T
+\end{align}
+where $r_i\in\C$ are constants. Further, according to Euler's formula, we have
+\begin{align}
+    e^{\lambda_1t} &= e^{i\sqrt{k_1}t} = \cos\sqrt{k_1}t + \sin\sqrt{k_1}t \\
+    e^{\lambda_2t} &= e^{-i\sqrt{k_1}t} = \cos\sqrt{k_1}t - \sin\sqrt{k_1}t \\
+    e^{\lambda_3t} &= e^{i\sqrt{k_1+2k_2}t} = \cos\sqrt{k_1+2k_2}t + \sin\sqrt{k_1+2k_2}t \\
+    e^{\lambda_4t} &= e^{-i\sqrt{k_1+2k_2}t} = \cos\sqrt{k_1+2k_2}t - \sin\sqrt{k_1+2k_2}t 
+\end{align}
+Combing those equations, we can obtain
+\begin{align}
+    w_1(t) = &(r_1+r_2)\cos\sqrt{k_1}t + (r_1-r_2)\sin\sqrt{k_1}t \\+ &(r_3+r_4)\cos\sqrt{k_1+2k_2}t + (r_3-r_4)\sin\sqrt{k_1+2k_2}t
+\end{align}
+\begin{align}
+    w_2(t) = &(r_1+r_2)\cos\sqrt{k_1}t + (r_1-r_2)\sin\sqrt{k_1}t \\- &(r_3+r_4)\cos\sqrt{k_1+2k_2}t - (r_3-r_4)\sin\sqrt{k_1+2k_2}t
+\end{align}
+Let $\alpha=r_1+r_2, \beta=r_1-r_2, \gamma=r_3+r_4,\delta=r_3-r_4 \in \C$, then we can obtain the form in trigonometric as follows
+\begin{align}
+    w_1(t) &= \alpha\cos\sqrt{k_1}t + \beta\sin\sqrt{k_1}t + \gamma\cos\sqrt{k_1+2k_2}t + \delta\sin\sqrt{k_1+2k_2}t\\
+    w_2(t) &= \alpha\cos\sqrt{k_1}t + \beta\sin\sqrt{k_1}t - \gamma\cos\sqrt{k_1+2k_2}t - \delta\sin\sqrt{k_1+2k_2}t
+\end{align}
+
+(4) Take $k_1=25$ and $k_2=1$, then the differential equations of the system are
+\begin{align}
+    \ddot{w_1} + 26w_1 - w_2 &= 0 \\
+    \ddot{w_2} + 26w_2 - w_1 &= 0
+\end{align}
+Based on the results in (3), we have
+\begin{align}
+    w_1(t) &= \alpha\cos5t + \beta\sin5t + \gamma\cos\sqrt{27}t + \delta\sin\sqrt{27}t\\
+    w_2(t) &= \alpha\cos5t + \beta\sin5t - \gamma\cos\sqrt{27}t - \delta\sin\sqrt{27}t
+\end{align}
+Combining with the boundary conditions
+\begin{gather}
+    \dot{w_1}(0) = 5\beta + \sqrt{27}\delta = 0 \\
+    \dot{w_2}(0) = 5\beta - \sqrt{27}\delta = 0 \\
+    w_1(0) = \alpha + \gamma = 1 \\
+    w_2(0) = \alpha - \gamma = 0
+\end{gather}
+and we can obtain $\beta = \delta = 0$, $\alpha = \gamma = \half$. Thus, the behavior of the system is
+\begin{gather}
+    w_1(t) = \half\cos5t + \half\cos\sqrt{27}t \\
+    w_2(t) = \half\cos5t - \half\cos\sqrt{27}t
+\end{gather}
+
+(5) Since $\cos{p} + \cos{q} = 2\cos\frac{p-q}{2}\cos\frac{p+q}{2}$ and $\cos{p} - \cos{q} = -2\cos\frac{p-q}{2}\cos\frac{p+q}{2}$. we have
+\begin{gather}
+    w_1(t) = \half\cos5t + \half\cos\sqrt{27}t = \cos\frac{5+\sqrt{27}}{2}t\cos\frac{5-\sqrt{27}}{2}t \\
+    w_2(t) = \half\cos5t - \half\cos\sqrt{27}t = -\sin\frac{5+\sqrt{27}}{2}t\sin\frac{5-\sqrt{27}}{2}t
+\end{gather}
+Hence, the fast and slow frequencies are 
+\begin{gather}
+    f_{\tn{fast}} = \frac{5+\sqrt{27}}{2}/2\pi = \frac{5+\sqrt{27}}{4\pi} \\
+    f_{\tn{slow}} = \frac{-5+\sqrt{27}}{2}/2\pi = \frac{\sqrt{27}-5}{4\pi}
+\end{gather}
+
+(6) $w_1(t)$ and $w_2(t)$ are said to be in antiphase if their phase difference is $\Delta\phi = (2n+1)\pi, ~n\in\N$, which is obvious for the results in (4) and (5).
+
+(7) Similar with (4), we can solve for the behavior of $(w_1,w_2)$:
+\begin{gather}
+    w_1(t) = \half\cos t + \half\cos\sqrt{51}t \\
+    w_2(t) = \half\cos t - \half\cos\sqrt{51}t
+\end{gather}
+
+(8) Similar with (5), we have
+\begin{gather}
+    w_1(t) = \half\cos t + \half\cos\sqrt{51}t = \cos\frac{1+\sqrt{51}}{2}t\cos\frac{1-\sqrt{51}}{2}t \\
+    w_2(t) = \half\cos t - \half\cos\sqrt{51}t = -\sin\frac{1+\sqrt{51}}{2}t\sin\frac{1-\sqrt{51}}{2}t
+\end{gather}
+Hence, the fast and slow frequencies can be determined as follows
+\begin{gather}
+    f_{\tn{fast}} = \frac{1+\sqrt{51}}{2}/2\pi = \frac{1+\sqrt{51}}{4\pi} \\
+    f_{\tn{slow}} = \frac{-1+\sqrt{51}}{2}/2\pi = \frac{\sqrt{51}-1}{4\pi}
+\end{gather}
+
+

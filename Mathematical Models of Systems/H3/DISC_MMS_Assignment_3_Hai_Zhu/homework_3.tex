@@ -1,0 +1,411 @@
+% DISC Course - Homework 1
+
+\section{Homework 3}
+
+\subsection{Chapter 7}
+\subsubsection{Exercise 7.2}
+\tb{Solution: } 
+Since $R_2(\xi) = U(\xi)R_1(\xi)V(\xi)$ where $U(\xi),V(\xi)$ are unimodular polynomial matrices, we have
+\begin{equation}
+    \det(R_2(\xi)) = \det(U(\xi)R_1(\xi)V(\xi)) = c\det(R_1(\xi))
+\end{equation}
+\begin{equation}
+    \tn{rank}(R_2(\xi)) = \tn{rank}(U(\xi)R_1(\xi)V(\xi)) = \tn{rank}(R_1(\xi))
+\end{equation}
+which implies that $R_1(\xi)$ and $R_2(\xi)$ have the same zeros with same multiplicities and the same rank deficiencies. Hence, for the given systems $R_1(\frac{d}{dt})w=0$ and $R_2(\frac{d}{dt})w=0$, the first system is asymptotically
+stable, stable, or unstable if and only if the second one is.
+
+
+\subsubsection{Exercise 7.4}
+\tb{Solution: }
+Let 
+\begin{equation}
+    A = \mat 
+    0       &w_1    &\alpha     &0 \\
+    -w_1    &0      &0          &0 \\
+    0       &0      &0          &w_2\\
+    0       &0      &-w_2       &0
+    \mate
+\end{equation}
+then the system is described by $\frac{d}{dt}x = Ax$.
+
+The characteristic polynomial of $A$ is
+\begin{equation}
+    P(\xi) = \det(\xi I-A) = (\xi^2+w_1^2)(\xi^2+w_2^2)
+\end{equation}
+ The eigenvalues of $A$ are
+ \begin{equation}\label{eq:7.4eig}
+     \lambda_1 = w_1\tn{i}, ~\lambda_2 = -w_1\tn{i}, ~\lambda_3 = w_2\tn{i}, ~\lambda_4 = -w_2\tn{i}
+ \end{equation}
+which implies that all the eigenvalues of $A$ are on the imaginary axis. 
+
+According to Corollary 7.2.4, the system is 
+\vspace{-1em}
+\begin{enumerate}
+    \item asymptotically stable if and only if the eigenvalues of $A$ have negative real part;
+    \item stable if and only if for each $\lambda\in\C$ that is an eigenvalue of $A$, either (i) $\tn{Re}\lambda<0$, or (ii) $\tn{Re}\lambda=0$ and $\lambda$ is a semisimple eigenvalue of $A$;
+    \item unstable if and only if $A$ has either an eigenvalue with positive real part or a nonsemisimple one with zero real part.
+\end{enumerate}
+\vspace{-1em}
+
+Hence, we can determine if the system is (asymptotically) stable or unstable based on (\ref{eq:7.4eig}).
+\vspace{-1em}
+\begin{itemize}
+    \item Case 1: asymptotically stable. This requires that all $\tn{Re}\lambda<0$. However, according to (\ref{eq:7.4eig}), for $A$ we have $\tn{Re}\lambda = 0$. 
+    
+    Hence, $\forall w_1,w_2,\alpha\in\R$, the above system is not an asymptotically stable system. 
+
+    \item Case 2: stable. Since for $\tn{Re}\lambda = 0$, in this case, it is required that all eigenvalues of $A$ should be semisimple, that is
+    \begin{equation}\label{eq:7.4sta}
+        n - \tn{rank}(\lambda I -A) = m
+    \end{equation}
+    where $n$ is the order of $A$ and $m$ is the multiplicity of $\lambda$. First we consider the condition that $w_1^2\neq w_2^2$ and both of them are not zero, i.e. $w_1w_2 \neq 0$. In this condition, all eigenvalues of $A$ have multiplicity of one. It is trivial to validate that (\ref{eq:7.4sta}) holds. Thus the system is stable. Second, we consider the condition that $w_1^2\neq w_2^2$ but one of them is zero, i.e. $w_1w_2 = 0$. In this condition, we only need to validate the case wehn the eigenvalue equals zero whose multiplicity is 2. Note that 
+    \begin{equation}
+        (0I - A) = \mat 0 &-w_1 &-\alpha &0 \\ w_1 &0 &0 &0 \\ 0 &0 &0 &-w_2 \\ 0 &0 &-w_2 &0 \mate 
+    \end{equation}
+    Since one of $w_1$ and $w_2$ is zero, the rank of above matrix is 2. Thus, the system is stable. Third, we consider the condition that $w_1^2=w_2^2$. In this case, note that 
+    \begin{equation}
+        \begin{aligned}
+            (\pm w_1\tn{i}I-A) &= \mat 
+            \pm w_1\tn{i}   &\mp w_1        &-\alpha    &0 \\
+            \pm w_1         &\pm w_1\tn{i}  &0          &0 \\
+            0               &0              &\pm w_1\tn{i} &\mp w_1 \\
+            0               &0              &\pm w_1    & \pm w_1\tn{i}
+            \mate  \\
+            &\rightarrow \mat
+            \pm w_1\tn{i}   &\mp w_1        &-\alpha    &0 \\
+            0               &0              &\pm w_1    &\pm w_1\tn{i} \\
+            0               &0              &0          &0 \\
+            0               &0              &-\alpha\tn{i}    & 0
+            \mate 
+        \end{aligned}
+    \end{equation}
+    If $w_1\neq 0$, we need the rank of the above matrix to be 2, which induces that $\alpha=0$. If $w_1=0$, we need the rank of the above matrix to be 0, which also induces that $\alpha=0$. That is, if $w_1^2 = w_2^2$, we need $\alpha = 0$ to make the system stable. Util now, we have considered all conditions for $w_1$ and $w_2$ under which the system is stable. For any other conditions, the system is unstable.
+    
+    To sum up in this case, the system is stable if any one of the following conditions is satisfied:
+    \begin{itemize}
+        \item $w_1^2 \neq w_2^2, \forall \alpha\in\R$;
+        \item $w_1^2 = w_2^2, \alpha = 0$.
+    \end{itemize}
+
+    \item Case 3: unstable. Based on previous results, the system is unstable if
+    \begin{itemize}
+        \item $w_1^2 = w_2^2, \alpha \neq 0$.
+    \end{itemize}
+\end{itemize}
+
+
+\subsubsection{Exercise 7.6}
+\tb{Solution: }
+\begin{proof}
+    
+(a) Let 
+\begin{equation}
+    P_1(\xi) = p_0 + p_1\xi + \dots + p_n\xi^n = \sum_{i=0}^np_i\xi^i = p_n \prod_{i=1}^n(\xi-\lambda_i)
+\end{equation}    
+where $\lambda\in\C$ is the root of the polynomial $P_1(\xi)$. 
+Then we have
+\begin{equation}
+    \begin{aligned}
+        P_2(\xi) &= p_n + p_{n-1}\xi + \dots + p_0\xi^n \\
+        &= \sum_{i=0}^np_i\xi^{n-i} \\
+        &= \xi^n\sum_{i=0}^np_i\xi^{-i} \\ 
+        &= \xi^nP_1(\frac{1}{\xi}) \\
+        &= \xi^np_n \prod_{i=1}^n(\frac{1}{\xi}-\lambda_i) \\
+        &= p_n\prod_{i=0}^n(1-\lambda_i\xi)
+    \end{aligned}
+\end{equation}
+Thus, denote the roots of the polynomial $P_2(\xi)$ in $\tilde\lambda_i$, then we have
+\begin{equation}
+    \tilde\lambda_i\lambda_i = 1
+\end{equation}
+which implies that $\tilde\lambda_i$ and $\lambda_i$ have same signs. Hence, $P_1(\xi)$ is Hurwitz if and only if $P_2(\xi)$ is.
+
+(b) For an invertible matrix $A\in\R^{n\times n}$, denoting the eigenvalues of it and its inverted matrix as $\Lambda(A) = \lambda_i$ and $\Lambda(\A^{-1})=\tilde\Lambda_i$, then we have
+\begin{equation}
+    \tilde\lambda_i\lambda_i = 1
+\end{equation}
+Furthermore, the eigenvalues of $A$ and its transpose are the same, i.e. $\Lambda(A) = \Lambda(A^T)$. Combined with results of (a), we conclude that $A$ is Hurwitz if and only if $A^{-1}$ is, and if only if $A^T$ is. 
+
+This completes the proof.
+
+\end{proof}
+
+
+\subsubsection{Exercise 7.23}
+\tb{Solution: }
+\begin{proof}
+    
+(a) The objective is to prove that if $A,P=P^T$, and $Q=Q^T\leq 0$ satisfy the Lyapunov equation $A^TP+PA = Q$, then $(A,Q)$ cannot be observable whenever $A$ has eigenvalues with zero real part.
+
+Let $\lambda$ be an eigenvalue of $A$ with zero real part and $v$ be its corresponding eigenvector. That is 
+\begin{equation}
+    Av = \lambda v, \quad \tn{Re}(\lambda) = 0
+\end{equation}
+and
+\begin{equation}
+    \bar{v}A^T = \bar{\lambda}\bar{v}, \quad \tn{Re}(\bar\lambda) = 0
+\end{equation}
+where $\bar{\cdot}$ denotes the complex conjugate. Since $A^TP+PA = Q$ and $A,P=P^T$, we have
+\begin{equation}
+    \bar{v}Qv = \bar{v}(A^TP+PA)v = \bar{\lambda}\bar{v}Pv + \lambda\bar{v}Pv = (\lambda + \bar{\lambda})\bar{v}Pv = 0
+\end{equation}
+where $Q\leq 0$. Thus, $Qv=0$ and we have
+\begin{equation}
+    \mat \lambda I-A &Q \mate v = 0
+\end{equation}
+Therefore, $\tn{rank}(\mat \lambda I-A &Q \mate)<n$, which implies that $(A,Q)$ is not observable.
+
+(b) The objective is to prove that if $A$ has no eigenvalues with zero real part, then the system $\frac{d}{dt}x = Ax$ is unstable if and only if ($\iff$) there exist $P$ and $Q$ such that $P \tn{ not } \geq 0, Q\leq 0$ and $(A,Q)$ is observable satisfying the Lyapunov equation.
+
+(1) "$\Leftarrow$": This is proved by Theorem 7.4.4 in the book.
+
+(2) "$\Rightarrow$": Since the system $\frac{d}{dt}x = Ax$ is unstable and $A$ has no eigenvalues with zero real part, $A$ has at least one eigenvalue with positive real part. Let $\lambda_1,\dots,\lambda_m ~(0\leq m< n)$ be the eigenvalues of $A$ with negative real part and $\lambda_{m+1},\dots,\lambda_n$ the eigenvalues with positive real part. The corresponding eigenvectors are denoted by $v_1,\dots,v_m$ and $v_{m+1},\dots,v_n$. 
+
+Let 
+\begin{equation}
+    \tilde{A} = \mat A_1 &0 \\ 0 &A_2 \mate
+\end{equation}
+where $A_in\R^{m\times m}$ and $-A_2\in\R^{(n-m)\times(n-m)}$ are Hurwitz. Then we can choose such $A_1$ and $A_2$ such that $A$ is similar to $\tilde{A}$. Furthermore, since $A_1$ and $-A_2$ are Hurwitz, there exist unique $P_1>0\in\R^{m\times m}$ and $P_2>0\in\R^{(n-m)\times(n-m)}$ such that 
+\begin{align}
+    A_1^TP_1 + P_1A_1 &= -I_m \\
+    (-A_2)^TP_2 + P_2(-A_2) &= -I_{n-m}
+\end{align}
+Let 
+\begin{equation}
+    \tilde P = \mat P_1 &0 \\ 0 &-P_2 \mate
+\end{equation}
+then
+\begin{equation}
+    \tilde{A}^T\tilde P + \tilde P\tilde{A} = -I_n
+\end{equation}
+Let $\tilde Q = -I_n \leq 0$, then it is obvious that $\tn{rank}(\mat \lambda I - \tilde{A} &\tilde Q \mate) = n, \forall \lambda\in\C$. Therefore, $(\tilde{A},\tilde Q)$ is observable. Moreover, since $A$ and $\tilde{A}$ are similar, there exists a nonsigular matrix $U$ such that $\tilde{A} = U^{-1}AU$. Then the above equation can be written as follows
+\begin{equation}
+    \begin{aligned}
+        &(U^{-1}AU)^T\tilde P + \tilde P(U^{-1}AU) = \tilde Q \\
+        \implies &A^T(S^{-1})^T\tilde PS^{-1} + (S^{-1})^T\tilde PS^{-1}A = (S^{-1})^T\tilde QS^{-1}\\
+        \implies &A^TP + PA = Q
+    \end{aligned}
+\end{equation}
+where $P = (S^{-1})^T\tilde P S^{-1}$, $Q = (S^{-1})^T\tilde Q S^{-1}$. Hence, it can be seen that $\tn{rank}(\mat \lambda I - {A} & Q \mate) = n, \forall \lambda\in\C$. Therefore, $({A}, Q)$ is observable. Furthermore, since $\tilde{P}$ has diagonal negative definite submatrix, $\tilde{Q} = -I_n$, $S$ is nonsigular, it is easy to see that $P \tn{not} \geq 0$ and $Q\leq 0$.
+
+This completes the proof.
+
+\end{proof}
+
+
+\subsection{Chapter 9}
+\subsubsection{Exercise 9.6}
+\tb{Solution: }
+(a) For
+\begin{align}
+    A &= \mat 0 &1 &0 &0 \\ -1 &0 &0 &0 \\ 0 &0 &0 &1 \\ 0 &0 &-1 &0 \mate \\
+    B &= \mat 0 &0 \\ 1 &0 \\ 0 &0 \\ 0 &1 \mate
+\end{align}
+the controllability matrix can be calculated as follows
+\begin{equation}
+    R = \mat
+    0     &0     &1     &0     &0     &0    &-1     &0 \\ 
+    1     &0     &0     &0    &-1     &0     &0     &0 \\ 
+    0     &0     &0     &1     &0     &0     &0    &-1 \\ 
+    0     &1     &0     &0     &0    &-1     &0     &0
+    \mate
+\end{equation}
+Since $\tn{rank}(R) = 4$, $(A,B)$ is controllable. Thus, according to Lemma 9.4.4, there exist $K\in\R^{2\times 1},BK\neq 0$ and $N^\prime\in\R^{2\times 4}$ such that $(A+BN^\prime,BK)$ is controllable. 
+
+According to Algorithm 9.5.1, if the matrices $K$ and $N^\prime$ are chosen using a random number generator, then we can be almost sure that the resulting matrices $(A+BN^\prime,BK)$ form a controllable pair. To this end, we choose 
+\begin{align}
+    K &= \mat 1 \\ 1 \mate \\
+    N^\prime &= \mat 1 &0 &0 &0 \\ 0 &1 &0 &0 \mate
+\end{align}
+Then the controllability matrix can be calculated as follows
+\begin{equation}
+    R^\prime = \mat 
+    0     &1     &0     &0 \\ 
+    1     &0     &0     &0 \\ 
+    0     &1     &1    &-1 \\ 
+    1     &1    &-1    &-1
+    \mate
+\end{equation}
+Since $\tn{rank}(R^\prime) = 4$, $(A+BN^\prime,BK)$ is controllable. Hence, the above matrix $K$ and $N^\prime$ satisfy that $(A+BN^\prime,BK)$ is controllable.
+
+(b) For
+\begin{align}
+    A &= \mat 1 &0 &0 \\ 0 &1 &0 \\ 0 &0 &-1 \mate \\
+    B &= \mat 1 &0 \\ 0 &1 \\ 1 &1 \mate
+\end{align}
+the controllability matrix can be calculated as follows
+\begin{equation}
+    R = \mat
+    1     &0     &1     &0     &1     &0 \\ 
+    0     &1     &0     &1     &0     &1 \\
+    1     &1    &-1    &-1     &1     &1
+    \mate
+\end{equation}
+Since $\tn{rank}(R) = 3$, $(A,B)$ is controllable. Thus, according to Lemma 9.4.4, there exist $K\in\R^{2\times 1},BK\neq 0$ and $N^\prime\in\R^{2\times 3}$ such that $(A+BN^\prime,BK)$ is controllable. 
+
+Similar to the question (a), we firstly choose matrix $K$ and $N^\prime$, then validate if they satisfy the condition. To this end, we choose
+\begin{align}
+    K &= \mat 1 \\ 2 \mate \\
+    N &= \mat 1 &0 &1 \\ 0 &1 &0 \mate 
+\end{align}
+Then the controllability matrix can be calculated as follows
+\begin{equation}
+    R^\prime = \mat 
+    1     &5    &13 \\ 
+    2     &4     &8 \\ 
+    3     &3     &9 \\ 
+    \mate
+\end{equation}
+Since $\tn{rank}(R^\prime) = 3$, $(A+BN^\prime,BK)$ is controllable. Hence, the above matrix $K$ and $N^\prime$ satisfy that $(A+BN^\prime,BK)$ is controllable.
+
+
+\subsubsection{Exercise 9.15}
+\tb{Solution: }
+\begin{proof}
+
+(1) "necessity": If the system
+\begin{equation}
+    \frac{d}{dt}x = Ax + Bu(t), x(0) = x_0
+\end{equation}
+is  stabilizable, then the uncontrollable polynomial $\mc{X}_u(\xi)$ of $A$ is Hurwitz. According to Corollary 9.6.2, if the uncontrollable polynomial is Hurwitz, then there exists a feedback control law $u=Nx$ such that the closed loop system
+\begin{equation}
+    \frac{d}{dt}x = (A+BN)x
+\end{equation}
+is asymptotically stable. Hence, $\forall x_0\in\R$, $x(t)\rightarrow 0$ as $t \rightarrow \infty$.
+
+(2) "sufficiency": For a pair $(A,B)$, there exists a nonsigular matrix $S$ such that (Corollary 5.2.25)
+\begin{align}
+    A &= S^{-1}AS = \mat A_{11} &A_{12} \\ 0 &A_{22} \mate \\
+    B &= S^{-1}B = \mat B_1 \\ 0 \mate
+\end{align}
+where $(A_{11},B_1)$ is controllable. Thus
+\begin{equation}
+    \begin{aligned}
+        \frac{d}{dt}x &= Ax + Bu \\
+        &= \mat A_{11} &A_{12} \\ 0 &A_{22} \mate x + \mat B_1 \\ 0 \mate u
+    \end{aligned}
+\end{equation}
+Rewrite the equation as follows
+\begin{equation}\label{eq:9.15}
+    \begin{cases}
+        \dot{x}_1(t) &= A_{11}x_1(t) + A_{22}x(t) +B_1u(t) \\
+        \dot{x}_2(t) &= A_{22}x_2(t)
+    \end{cases}
+\end{equation}
+Given the condition that $\forall x_0\in\R$, $x(t)\rightarrow 0$ as $t \rightarrow \infty$, if the system is not stabilizable. Then according to (\ref{eq:9.15}), the uncontrollable polynomial $\mc{X}_u(\xi) = \mc{X}_{A_{22}}(\xi)$ is not Hurwitz which results in that $A_{22}$ is not Hurwitz. As a consequence, $x(2)\rightarrow\infty$ as $t\rightarrow\infty$, which contradicts the condition that $\forall x_0\in\R$, $x(t)\rightarrow 0$ as $t \rightarrow \infty$. Hence, the system is stabilizable.
+
+This completes the proof.
+    
+\end{proof}
+
+
+
+\subsection{Chapter 10}
+\subsubsection{Exercise 10.20}
+\tb{Solution: }
+Let 
+\begin{align}
+    A = \mat 0 &1 \\ -1 &0 \mate,
+    B = \mat 0 \\ 1 \mate,
+    C = \mat 1 &0 \mate
+\end{align}
+the plant is 
+\begin{align}
+    \frac{d}{dt}x &= Ax + Bu \\
+    y &= Cx
+\end{align}
+The controllability matrix and observability matrix are 
+\begin{align}
+    \mc{C} &= \mat A &AB \mate = \mat 0 &1 \\ 1 &0 \mate \\
+    \mc{O} &= \mat C \\ CA \mate = \mat 1 &0 \\ 0 &1 \mate
+\end{align}
+Since $\tn{rank}(\mc{C})=2$, $\tn{rank}(\mc{O})=2$, the system is both controllable and observable. Therefore, there exists a compensator such that the closed loop system has characteristic polynomial $p(\xi)=1+2\xi+2\xi^2+\xi^3 = (1+\xi)(1+\xi+\xi^2)$.
+
+We first design a state feedback control $u=Nx, N\in\R^{1\times 2}$ such that the characteristic polynomial is $1+\xi+\xi^2$. The matrix $N$ can be calculated using the Algorithm 9.5.1 in the book, which results in $N = \mat 0 &-1 \mate$. Therefore, the state feedback control law is 
+\begin{equation}
+    u = Nx = -x_2
+\end{equation}
+However, this feedback control law uses the state $x_2$ which is not measured. So we need to design a reduced-order state observer such that the characteristic polynomial is $1+\xi$. 
+
+The system equation can be written as
+\begin{equation}
+    \begin{cases}
+        \dot{x}_1 = x_2 \\ 
+        \dot{x}_2 = -x_1+u \\
+        y = x_1
+    \end{cases}
+\end{equation}
+Consider the following observer to estimate $x_2$
+\begin{equation}
+    \frac{d}{dt}\hat{x}_2 = -y+u + L(x_2-\hat{x}_2)
+\end{equation}
+For characteristic polynomial $1+\xi$, we have $L=1$. Then the above equation can be written as 
+\begin{align}
+    \frac{d}{dt}\hat{x}_2 &= -y+u + (x_2-\hat{x}_2) \\
+    &= -y+u+\dot{y}-\hat{x}_2
+\end{align}
+Let
+\begin{equation}
+    v = \hat x_2 - y
+\end{equation}
+then
+\begin{equation}
+    \dot v = \dot{\hat{x}}_2 - \dot y = u - v - 2y
+\end{equation}
+Thus, the reduced-order observer is 
+\begin{equation}
+    \begin{cases}
+        \dot v = u - v - 2y \\
+        \hat{x}_2 = v + y \\ 
+        \hat{x}_1 = y
+    \end{cases}
+\end{equation}
+
+Hence, the first-order compensator is 
+\begin{equation}
+    \begin{cases}
+        \dot v = u - v -2y \\
+        \hat{x}_2 = v + y \\
+        \hat{x}_1 = y \\
+        u = -\hat{x}_2
+    \end{cases}
+\end{equation}
+
+
+\subsubsection{Exercise 10.21}
+\tb{Solution: }
+For the nonlinear system 
+\begin{equation}
+    y^3 + \frac{d^2}{dt^2}y + \sin y = u(u-1)
+\end{equation}
+let
+\begin{equation}
+    x = \mat x_1 \\ x_2 \mate = \mat y \\ \dot y \mate
+\end{equation}
+then the system equation can be written as follows
+\begin{align}
+    \frac{d}{dt}x &= \mat x_1 \\ -x_1^3-\sin{x_1}+u(u-1) \mate = f(x,u) \\
+    y &= \mat 1 &0 \mate x
+\end{align}
+Let
+\begin{align}
+    A &= \frac{\partial f}{\partial x}\bigg|_{x^\star,y^\star} = \mat 0 &1 \\ -1 &0 \mate \\
+    B &= \frac{\partial f}{\partial u}\bigg|_{x^\star,y^\star} = \mat 0 \\ 2u-1 \mate_{u=0} = \mat 0 \\ -1 \mate \\
+    C &= \mat 1 &0 \mate
+\end{align}
+then we can obtain the linearized form of the system
+\begin{align}
+    \frac{d}{dt}\Delta_x &= A\Delta_x + B\Delta_u \\
+    \Delta_y &= C \Delta_y
+\end{align}
+
+Note that the above linearized system is similar with the system in the previous Exercise 10.20. We can use a similar way to design a first-order compensator to make the closed loop system with characteristic polynomial $p(\xi) = 1 + 2\xi + 2\xi^2 + \xi^3$. The resulted compensator is
+\begin{equation}
+    \begin{cases}
+        \dot v = \Delta_u - \Delta_v -2\Delta_y \\
+        \Delta_{\hat{x}_2} = \Delta_v + \Delta_y \\
+        \Delta_{\hat{x}_1} = \Delta_y \\
+        \Delta_u = \Delta_{\hat{x}_2}
+    \end{cases}
+\end{equation}

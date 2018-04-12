@@ -1,0 +1,133 @@
+\documentclass[a4 paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+%% preamble
+\input{preamble}
+
+%% title information
+\title{
+        \Large{DISC Course: Nonlinear Control Systems}\\
+        \vspace{1em}
+        \large\tb{Assignment 2}
+}
+\author{
+        \small Hai Zhu                          \\
+        \small Delft University of Technology   \\
+        \tt\small h.zhu@tudelft.nl
+ }
+\date{\small\ti{Monday 19 February 2018}}
+
+%% document
+\begin{document}
+%% title
+\maketitle
+
+
+%% Exercise 1
+\tb{Exercise 1.} (ISS \& sector-bound nonlinearity)
+
+\tb{Solution:} (a) Let $x = [x_1, x_2]^T$, then the nonlinear system can be described as follows:
+\begin{equation}
+        \begin{aligned}
+                \dot{x_1} &= x_2 \\
+                \dot{x_2} &= x_1 - 2x_2 -f(x_1) + d \\
+                y &= x_1
+        \end{aligned}
+\end{equation}
+Take the following Lyapunov function candidate
+\begin{equation}
+        V(x) = (x_1+x_2)^2 + 2\int_0^{x_1}f(\tau)d\tau
+\end{equation} 
+Then we have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x) &= 2x_1\dot{x_1} + 2x_2\dot{x_2} + 2\dot{x_1}x_2 + 2x_1\dot{x_2} + 2f(x_1)\dot{x_1} \\
+                &= 2x_1^2 -2x_2^2 -2x_1f(x_1) + 2(x_1+x_2)d
+        \end{aligned}
+\end{equation}
+Since $f$ is a smooth function satisfying the sector-bound condition
+\begin{equation}
+        c_1y^2 < f(y)y < c_2y^2
+\end{equation} 
+where $c_1=2$ and $c_2=6$, we can conclude that $V(x)$ is positive definite and radially bounded. That is, there exist two functions $\alpha_1,\alpha_2 \in \mathcal{K}_\infty$ such that
+\begin{equation}
+        \alpha_1(\norm{x}) \leq V(x) \leq \alpha_2(\norm{x})
+\end{equation}
+Futhermore, 
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x) &= 2x_1^2 -2x_2^2 -2x_1f(x_1) + 2(x_1+x_2)d \\
+                &< -2x_2^2 + 2(1-c_1)x_1^2 + 2(x_1+x_2)d \\
+                &= -2x_1^2 -2x_2^2 + 2(x_1+x_2)d \\
+                &\leq -x_1^2 -x_2^2 + 2d^2 \\
+                &= -\gamma_1(\norm{x}) + \gamma_2(\norm{d})
+        \end{aligned}
+\end{equation}
+where $\gamma_1 = r^2$ and $\gamma_2 = 2r^2$, $\gamma_1, \gamma_2 \in \mathcal{K}_\infty$. Hence, the closed-loop nonlinear system is ISS with respect to $d$.
+
+(b) Use the same Lyapunov function as (a) and then we have
+\begin{equation}
+        \begin{aligned}
+                \dot{V}(x) &= 2x_1^2 -2x_2^2 -2x_1f(x_1) + 2(x_1+x_2)d \\
+                &< -2x_2^2 + 2(1-c_1)x_1^2 + 2(x_1+x_2)d \\
+                &\leq -2x_2^2 + 2(1-c_1)x_1^2 + \eps_1 x_1^2 + \frac{d^2}{\eps_1} + \eps_2 x_2^2 + \frac{d^2}{\eps_2} \\
+                &= (2-2c_1+\eps_1)x_1^2 + (\eps_2-2)x_2^2 + (\frac{1}{\eps_1}+\frac{1}{\eps_2})d^2 \\
+                &\leq \max{2-2c_1+\eps_1, \eps_2-2}\norm{x}^2 + (\frac{1}{\eps_1}+\frac{1}{\eps_2})d^2
+        \end{aligned}
+\end{equation}
+where $\eps_1, \eps_2 >0$.
+Thus, to make the nonlinear system ISS with respect to $d$, the following inequalities are required
+\begin{align}
+        2-2c_1+\eps_1 < 0 \\
+        \eps_2-2 < 0
+\end{align}
+Therefore, we have
+\begin{equation}
+        c_1 > 1+\frac{\eps_1}{2} > 1
+\end{equation}
+Hence, the lower bound of $c_1$ is $1$.
+
+
+%% Exercise 2
+\tb{Exercise 2.} (Counter-examples)
+
+\tb{Solution:} (a) Consider a scalar dynamical system
+\begin{equation}
+        \dot{x} = -x + x^2u
+\end{equation}
+where $x\in\R$ and $x\neq c$, $c$ is some constant. If $u=0$, then system becomes $\dot{x} = -x$. Take $V(x) = \half x^2$ the Lyapunov function candidate, then we have $\dot{V}(x)=-x^2$, which is negative definite. Therefore, the system is globally asymptotically stable with zero input.
+
+However, if we take a bounded signal $u \equiv 1$, we can find the solution of the system as follows
+\begin{equation}
+        x = \frac{1}{1-e^{t-\ln{\frac{x(0)}{x(0)-1}}}}
+\end{equation}
+where $x(0)$ is the initial condition. Since $x(t)$ is not a constant, it is obvious that $x(0) \neq 1$ in the above equation. Hence, the system with the above solution has a finite-escape time $\ln{\frac{x(0)}{x(0)-1}}$.
+
+(b) Consider the following state equation
+\begin{align}
+        \dot{x}_1 &= x_1 + x_2 + u \\
+        \dot{x}_2 &= -x_2 + x_2^2d
+\end{align}
+If $d = 0$, we can choose $u = -2x_1-x_2$ as the state feedback law. Then the state equation becomes
+\begin{align}
+        \dot{x}_1 &= -x_1\\
+        \dot{x}_2 &= -x_2
+\end{align}
+Take $V(x) = \half x_1^2 + \half x_2^2$ the Lyapunov function candidate, then we have $\dot{V}(x) = x_1\dot{x}_1 + x_2\dot{x}_2 = -x_1^2-x_2^2$,  which is negative definite. Therefore, the system is globally asymptotically stable with zero disturbance and the state feedback law.
+
+However, according to the results in (a), if $d \equiv 1$, then $x_2(t)$ is unbounded and has a finite escape time. Futhermore, note that the state feedback law $u=\alpha(x_1,x_2)$ cam only affect $x_1$. Thus, no matter what state feedback law is chosen, $x_2$ is unbounded and hence, the system cannot be made ISS respect to the disturbance signal $d$.
+
+
+%% Bibliography
+% \bibliographystyle{plain}
+% \begin{thebibliography}{99}
+
+%         \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+%         \bibitem{c2} C.T. Chen. \ti{Linear system theory and design}. Oxford University Press, Inc., USA, 1998.
+
+    
+% \end{thebibliography}
+
+
+\end{document}

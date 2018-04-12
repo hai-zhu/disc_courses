@@ -1,0 +1,501 @@
+% DISC Course - Homework 1
+
+\section{Homework 2}
+\subsection{Chapter 4}
+\subsubsection{Exercise 4.2}
+\tb{Solution: }
+The system dynamics can be written
+\begin{equation}
+    \mat \diff{y} \\ \ddiff{y} \mate = \mat 0 &1 \\ 4 &-3 \mate \mat y \\ \diff{y} \mate + \mat 0 \\ 1 \mate u
+\end{equation}
+Let $x = \mat y \\ \diff{y} \mate$, we have
+\begin{equation}
+    \begin{aligned}
+        \dot{x} &= \mat 0 &1 \\ 4 &-3 \mate x + \mat 0 \\ 1 \mate u \\
+        y &= [0 ~~1]x
+    \end{aligned}
+\end{equation}
+which is an i/s/o representation for the original system.
+
+
+\subsubsection{Exercise 4.6}
+\tb{Solution: }
+Choose the following state
+\begin{equation}
+    x(k) = \mat x_1(k) \\ x_2(k) \\ x_3(k) \\ x_4(k) \\ x_5(k) \mate = \mat u(k-5) \\ u(k-4) \\ u(k-3) \\ u(k-2) \\ u(k-1) \mate = \mat y(k) \\ y(k+1) \\ y(k+2) \\ y(k+3) \\ y(k+4) \mate
+\end{equation}
+Thus, we have
+\begin{equation}
+    x(k+1) = \mat x_1(k+1) \\ x_2(k+1) \\ x_3(k+1) \\ x_4(k+1) \\ x_5(k+1) \mate = \mat y(k+1) \\ y(k+2) \\ y(k+3) \\ y(k+4) \\ y(k+5) \mate = \mat x_2(k) \\ x_3(k) \\ x_4(k) \\ x_5(k) \\ u(k) \mate
+\end{equation}
+Hence, an i/s/o representation of the discrete-time system can be written as
+\begin{equation}
+    \begin{aligned}
+        x(k+1) &= \mat 0 &1 &0 &0 &0  \\ 0 &0 &1 &0 &0 \\ 0 &0 &0 &1 &0 \\ 0 &0 &0 &0 &1 \\ 0 &0 &0 &0 &0 \mate x(k) + \mat 0 \\ 0 \\ 0 \\ 0 \\ 1 \mate u(k) \\
+        y(k) &= \mat 1 &0 &0 &0 &0 \mate x(k)
+    \end{aligned}
+\end{equation}
+
+
+\subsubsection{Exercise 4.8}
+\tb{Solution: }
+Take $x$ an infinite-dimensional state which is defined by
+\begin{equation}
+    x = [x_0, \dots, x_k, \dots, x_1]^T
+\end{equation}
+where $k\in(0,1)$. Then we can determine a state space model for the system, which is written as follows
+\begin{equation}
+    \begin{aligned}
+        x_0(t) &= u(t) \\
+        x_k(t) &= u(t-k), \quad k\in(0,1) \\
+        y(t) &= u(t-1) = x_1(t) 
+    \end{aligned}
+\end{equation}
+
+
+\subsubsection{Exercise 4.22}
+\tb{Solution: }
+(a) First we prove that these three i/s/o representations define the same behavior. For case (a), let $x = [x_1,x_2]^T$, then we have 
+\begin{equation}
+    \mat \diff{x_1} \\ \diff{x_2} \mate = \mat -1 &0 \\ 0 &-2 \mate \mat x_1 \\ x_2 \mate + \mat 1 \\ 0 \mate u
+\end{equation}
+and 
+\begin{equation}
+    y = \mat 1 &0 \mate \mat x_1 \\ x_2 \mate = x_1
+\end{equation}
+Thus, the behavior of the system is decided by $\frac{d}{dt}y(t) = -y(t) + u(t)$.
+
+Similarly, we can easily determine the behavior of case (b) and (c), whose behavior are both decided by $\frac{d}{dt}y(t) = -y(t) + u(t)$.
+
+Hence, these three i/s/o representations define the same behavior.
+
+(b) Consider the following nonsingular matrix 
+\begin{equation}
+    \Sigma = \mat 0 &1 \\ 1 &0 \mate
+\end{equation}
+Then we have
+\begin{equation}
+    \Sigma A_1 \inv{\Sigma} = \mat 0 &1 \\ 1 &0 \mate \mat -1 &0 \\ 0 &-2 \mate \mat 0 &1 \\ 1 &0 \mate = \mat -2 &0 \\ 0 &-1 \mate = A_2
+\end{equation}
+and
+\begin{equation}
+    \Sigma B_1 = \mat 0 &1 \\ 1 &0 \mate \mat 1 \\ 0 \mate = \mat 0 \\ 1 \mate = B_2
+\end{equation}
+and 
+\begin{equation}
+    C_1\inv{\Sigma } = \mat 1 & 0 \mate \mat 0 &1 \\ 1 &0 \mate = \mat 0 & 1 \mate = C_2
+\end{equation}
+Hence, the first two systems are similar.
+
+(c) The first and the third system are not similar. That is, there does not exist a nonsingular matrix such that 
+\begin{equation}
+    \Sigma A_1 \Sigma^{-1} = A_3, \quad \Sigma B_1 = B_3, \quad C_1\inv{\Sigma} = C_3
+\end{equation}
+Assume that there exist such a matrix $\Sigma = \mat \sigma_{11} &\sigma_{12} \\ \sigma_{21} &\sigma_{22} \mate $ which satisfies the above equations. First, from $\Sigma B_1 = B_3$, we have
+\begin{equation}
+    \mat \sigma_{11} &\sigma_{12} \\ \sigma_{21} &\sigma_{22} \mate \mat 1 \\ 0 \mate = \mat 1 \\ 0 \mate
+\end{equation}
+which results in $\sigma_{11} = 1, \sigma_{21} = 0$. Since $\Sigma$ is nonsingular, we have $\sigma_{22} \neq 0$.
+
+Next, from $C_1\inv{\Sigma} = C_3$, we have
+\begin{equation}
+    \mat 1 &0 \mate \mat 1 &-\frac{\sigma_{12}}{\sigma_{22}} \\ 0 &\frac{1}{\sigma_{22}} \mate = \mat 1 & 0 \mate
+\end{equation}
+which results in $\sigma_{12}$ = 0. Thus, we have
+\begin{equation}
+    \Sigma A_1 \inv\Sigma = \mat 1 &0 \\ 0 &\sigma_{22} \mate \mat -11 &0 \\ 0 &-2 \mate \mat 1 &0 \\ 0 &\frac{1}{\sigma_{22}} \mate = \mat -1 &0 \\ 0 &-2 \mate \neq A_3
+\end{equation}
+Hence, the first and the third system are not similar.
+
+
+\subsection{Chapter 5}
+\subsubsection{Exercise 5.8}
+\tb{Solution: }
+(a) The controllability matrix of the system is given by
+\begin{equation}
+    \mathcal{C} = \mat B &AB \mate = \mat 2 &-2 \\ 6 &-12 \mate
+\end{equation}
+It is obvious that $\tn{rank}(\mathcal{C}) = 2 $. Hence, the system is controllable.
+
+(b) The input function can be calculated based on the following equations
+\begin{align}
+    u(t) &= B^Te^{-A^Tt}z(t) \\
+    z(t) &= \inv{K}(-x_0 + e^{-At}x_1) \\
+    K &= \int_0^{t_1} e^{-A\tau}BB^Te^{-A^T\tau}d\tau
+\end{align}
+Let $t_1 = \log2, x_0 = [0,0]^T, x_1 = [1,0]^T$. Since $A = \mat -1 &0 \\ 0 &-2 \mate$ and $B = \mat 2 \\ 6 \mate$, we have
+\begin{equation}
+    e^{-At} = e^{-A^Tt} = \mat e^t &0 \\ 0 &e^{2t} \mate
+\end{equation}
+\begin{equation}
+    B^Te^{-A^T\tau} = \mat 2e^{\tau} &6e^{2\tau} \mate
+\end{equation}
+Thus, we can obtain
+\begin{equation}
+    K = \mat 6 &28 \\ 28 &135 \mate
+\end{equation}
+Hence, we have
+\begin{equation}
+    \begin{aligned}
+        u(t) &= B^Te^{-A^Tt}z(t) \\
+        &= \mat 2 &6 \mate \mat e^t &0 \\ 0 &e^{2t} \mate \mat 6 &28 \\ 28 &135 \mate^{-1} \mat e^t &0 \\ 0 &e^{2t} \mate \mat 1 \\ 0 \mate
+        &= -\frac{84}{13}e^{3t} + \frac{135}{13}e^{2t}
+    \end{aligned}
+\end{equation}
+
+
+\subsubsection{Exercise 5.10}
+\tb{Solution: }
+(a) Denote $A = \mat A_1 &0 \\ 0 &A_2 \mate$ where $A_1 = \mat 0 &-1 \\ -1 &0 \mate$ and $A_2 = \mat 0 &1 \\ -4 &0 \mate$. Thus,
+\begin{equation}
+    e^{At} = \mat e^{A_1t} &0 \\ 0 &e^{A_2} \mate 
+\end{equation}
+where
+\begin{equation}
+    e^{A_1t} = \mat \cos t &\sin t \\ -\sin t &\cos t \mate 
+\end{equation}
+\begin{equation}
+    e^{A_2t} = \mat \cos 2t &\half\sin 2t \\ -2\sin 2t &\cos 2t \mate 
+\end{equation}
+Hence, we have
+\begin{equation}
+    e^{At} = \mat \cos t &\sin t &0 &0 \\ -\sin t &\cos t &0 &0 \\ 0 &0 &\cos 2t &\half\sin 2t \\ 0 &0 &-2\sin 2t &\cos 2t \mate
+\end{equation}
+
+(b) Similar with Exercise 5.8, let $x_0 = [0 ~1 ~0 ~-1]^T, x_1 = [0 ~0 ~0 ~0]^T$ and $t_1 = 2\pi$, then we can calculate the input function which is given below
+\begin{equation}
+    u(t) = \frac{\cos 2t}{2\pi} - \frac{2\cos t}{\pi}
+\end{equation}
+
+(c) The controllability matrix of the system is
+\begin{equation}
+    \begin{aligned}
+        \mathcal{C} &= \mat B &AB &A^2B &A^3B \mate \\
+        &= \mat 0 &0.5 &0 &-0.5 \\ 0.5 &0 &-0.5 &0 \\ 0 &2 &0 &-8 \\ 2 &0 &-8 &0 \mate
+    \end{aligned}
+\end{equation}
+whose rank is $\tn{rank}(C) = 4$. Therefore, the system is controllable. Hence, there exists an output function $u$ that derives the system from equilibrium at t = 0 to state $[1, 0, - 1, 0]^T$ of at $t = 1$.
+
+(d) Suppose that there exists such a control input which makes the state keep at $[1, 0, - 1, 0]^T$. Then we have
+\begin{equation}
+    \begin{aligned}
+        \diff{x} &= Ax + Bu \\
+        &= \mat 0 &1 &0 &0 \\ -1 &0 &0 &0 \\ 0 &0 &0 &1 \\ 0 &0 &-4 &0 \mate \mat 1 \\ 0 \\ -1 \\ 0 \mate + \mat 0 \\ \half \\ 0 \\ 2 \mate u(t) = \mat 0 \\ 0 \\ 0 \\ 0 \mate
+    \end{aligned}
+\end{equation}
+which results in 
+\begin{equation}
+    \mat 0 \\ \half \\ 0 \\ 2 \mate u(t) = \mat 0 \\ 1 \\ 0 \\ -4 \mate
+\end{equation}
+It can be verified that there does not exist a function $u(t)$ which can satisfy the above equation. Hence, there does not exist an input function $u$ that drives the system from equilibrium at $t = 0$ to state $[1, 0, - 1, 0]^T$ of at $t = 1$.
+
+(e) Denote $x = [x_1,x_2,x_3,x_4]^T$ and let
+\begin{equation}
+    \begin{aligned}
+        \diff{x} &= Ax + Bu \\
+        &= \mat 0 &1 &0 &0 \\ -1 &0 &0 &0 \\ 0 &0 &0 &1 \\ 0 &0 &-4 &0 \mate \mat x_1 \\ x_2 \\ x_3 \\ x_4 \mate + \mat 0 \\ \half \\ 0 \\ 2 \mate u(t) = \mat 0 \\ 0 \\ 0 \\ 0 \mate
+    \end{aligned}
+\end{equation}
+we can obtain
+\begin{equation}
+    \begin{aligned}
+        x_1 &= -\half u(t) \\
+        x_2 &= 0 \\
+        x_3 &= -\half u(t) \\
+        x_4 &= 0
+    \end{aligned}
+\end{equation}
+which indicates that the two masses should be at the same position and their velocities should should be zero at time.
+
+
+\subsubsection{Exercise 5.12}
+\tb{Solution: }
+It is obvious that in this exercise, question (a) is only a special case of question (b). Therefore, we solve question (b) directly and state why question (a) is also solved after proving the statement in (b).
+
+Define
+\begin{align}
+    M_1(\lambda) &= \lambda I_{n_1} - A_1 \\
+    M_2(\lambda) &= \lambda I_{n_2} - A_2 \\
+    \tilde{M}(\lambda) &= \lambda I_{n_1+n_2} - \tilde{A}
+\end{align}
+Then we have
+\begin{equation}
+    \tilde{M}(\lambda) = \mat M_1(\lambda) &0 \\ 0 &M_2(\lambda) \mate
+\end{equation}
+Note that $A_1$ and $A_2$ have a common eigenvalue, which is denoted as $\lambda_k$. Then we have 
+\begin{align}
+    \tn{rank}M_1(\lambda_k) &\leq n_1 - 1\\
+    \tn{rank}M_2(\lambda_k) &\leq n_2 - 1
+\end{align}
+Thus,
+\begin{equation}
+    \tn{rank} \tilde{M}(\lambda_k) \leq \tn{rank}M_1(\lambda_k) + \tn{rank}M_2(\lambda_k) \leq n_1 + n_2 - 2
+\end{equation}
+Furthermore,
+\begin{equation}
+    \tn{rank} \mat\lambda_k I_{n_1+n_2}-\tilde{A} &\tilde{b} \mate = \tn{rank} \mat \tilde{M}(\lambda_k) &\tilde{b} \mate \leq n_1 + n_2 - 1
+\end{equation}
+That is, the matrix $\mat\lambda I_{n_1+n_2}-\tilde{A} &\tilde{b} \mate$ is not full of rank at least at $\lambda = \lambda_k$. Hence, $(\tilde{A},\tilde{b})$ is not controllable for any $\tilde{b}\in\R^{2n\times 1}$. This completes the proof of question (b).
+
+For question (a), it is a special case of question (b) when $A_1 = A_2 = A$. Obviously their eigenvalues are the same. Hence, the statement in question (a) is also true.
+
+
+\subsubsection{Exercise 5.13}
+\tb{Solution: }
+(a) The matrix $R(\xi)\in\R^{3\times 4}[\xi]$ is 
+\begin{equation}
+    R(\xi) = \mat k_1 + k_3 + d_1\xi + M_1\xi^2 &0 &-k_3 &0 \\ 0 &k_2 + k_4 + d_2\xi + M_2\xi^2 &-k_4 &0 \\ -k_3 &-k_4 &k_3 + k_4 + M_3\xi^2 &-1 \mate
+\end{equation}
+
+(b) Denote 
+\begin{align}
+    r_1(\xi) &= k_1 + k_3 + d_1\xi + M_1\xi^2 \\
+    r_2(\xi) &= k_2 + k_4 + d_2\xi + M_2\xi^2 \\
+    r_3(\xi) &= k_3 + k_4 + M_3\xi^2
+\end{align}
+We can write $R(\xi)$ in the following form
+\begin{equation}
+    R(\xi) = \mat r_1(\xi) &0 &-k_3 &0 \\ 0 &r_2(\xi) &-k_4 &0 \\ -k_3 &-k_4 &r_3(\xi) &-1 \mate = \mat R_1(\xi) \\ R_2(\xi) \\ R_3(\xi) \mate
+\end{equation}
+The system is controllable if and only if $\tn{rank}(R(\lambda))$ is the same for all $\lambda \in \C$. Since $\tn{rank}(R(0)) = 3$, we have $\tn{rank}(R(\lambda)) = 3, \forall \lambda \in \C$, which is true if and only if $R_1(\xi)$ and $R_2(\xi)$ are coprime. Now, we prove that it is equivalent to that $r_1(\xi)$ and $r_2(\xi)$ are coprime.
+
+First, if $R_1(\xi)$ and $R_2(\xi)$ are coprime, we prove that $r_1(\xi)$ and $r_2(\xi)$ are also coprime by contradiction. Suppose that $r_1(\xi)$ and $r_2(\xi)$ are not coprime and thus can be expressed by 
+\begin{align}
+    r_1(\xi) &= g(\xi)\bar r_1(\xi) \\
+    r_2(\xi) &= g(\xi)\bar r_2(\xi)
+\end{align}
+where $\bar r_1(\xi)$ and $\bar r_2(\xi)$ are coprime and $g(\xi) \not\equiv 0$ is the common factor. Note that 
+\begin{align}
+    \alpha R_1(\xi) + \beta R_2(\xi) = \mat \alpha g(\xi)\bar r_1(\xi) & \beta g(\xi)\bar r_2(\xi) & -\alpha k_3 - \beta k_4 & 0 \mate
+\end{align}
+If we take $\alpha = k_4 \neq 0, \beta = -k_3 \neq 0$ and $\xi = \{\xi\in\C | g(\xi) = 0\}$, then we have $\alpha R_1(\xi) + \beta R_2(\xi) = 0$, which indicates that $R_1(\xi)$ and $R_2(\xi)$ are not coprime. This is contradictive with the fact that they are coprime. Hence, $r_1(\xi)$ and $r_2(\xi)$ are coprime.
+
+Second, if $r_1(\xi)$ and $r_2(\xi)$ are coprime, we prove that $R_1(\xi)$ and $R_2(\xi)$ are also coprime. Note that 
+\begin{align}
+    \alpha R_1(\xi) + \beta R_2(\xi) = \mat \alpha r_1(\xi) & \beta r_2(\xi) & -\alpha k_3 - \beta k_4 & 0 \mate
+\end{align}
+Since $r_1(\xi)$ and $r_2(\xi)$ are coprime, we have
+\begin{align}
+    \alpha R_1(\xi) + \beta R_2(\xi) = 0 &\implies \alpha r_1(\xi) = 0, \beta r_2(\xi) = 0 \\
+     &\implies \alpha = 0, \beta = 0
+\end{align}
+which implies that $R_1(\xi)$ and $R_2(\xi)$ are coprime. 
+
+In sum, the system is controllable if and only if $r_1(\xi)$ and $r_2(\xi)$ are coprime.
+
+(c) Substituting $r_1(\xi)$, $r_2(\xi)$ and $a(\xi) = a_1\xi + a_0$, $b(\xi) = b_1\xi + b_0$ into the equation
+\begin{equation}
+    a(\xi)r_1(\xi) + b(\xi)r_2(\xi) = 1
+\end{equation}
+we can obtain
+\begin{equation}
+    \begin{aligned}
+        a_1M_1 + b_1M_2 &= 0 \\
+        a_0M_1 + a_1d_1 + b_0M_2 + b_1d_2 &= 0 \\
+        a_0d_1 + a_1(k_1 + k_3) + b_0d_2 + b_1(k_2 + k_4) &= 0 \\
+        a_0(k_1+k_3) + b_0(k_2+k_4) -1 &= 0
+    \end{aligned}
+\end{equation}
+which results in
+\begin{equation}\label{eq:5.13c}
+    \mat 0 &M_1 &0 &M_2 \\ M_1 &d_1 &M_2 &d_2 \\ d_1 &k_1+k_3 &d_2 &k_2+k_4 \\ k_1+k_3 &0 &k_2+k_4 &0 \mate \mat a_0 \\ a_1 \\ b_0 \\ b_1 \mate = \mat 0 \\ 0 \\ 0 \\ 1 \mate
+\end{equation}
+
+(d) In equation (\ref{eq:5.13c}), let 
+\begin{align}
+    A &= \mat 0 &M_1 &0 &M_2 \\ M_1 &d_1 &M_2 &d_2 \\ d_1 &k_1+k_3 &d_2 &k_2+k_4 \\ k_1+k_3 &0 &k_2+k_4 &0 \mate \\
+    B &= \mat 0 \\ 0 \\ 0 \\ 1 \mate
+\end{align}
+Then it has a solution if and only if
+\begin{equation}
+    \tn{rank}([A ~~B]) = \tn{rank}(A)
+\end{equation}
+Now we prove that the above equation is equivalent with that $A$ is nonsingular. 
+
+First, we prove that "$\tn{rank}([A ~~B]) = \tn{rank}(A) \implies A$ is nonsingular" by contradiction. Suppose that $A$ is singular, then we have $\tn{rank}(A) \leq 3$. Furthermore, $\tn{rank}([A ~~B]) = \tn{rank}(A) + 1 \neq \tn{rank}(A)$, which is contradictive with the fact. Hence, $A$ is singular.
+
+Second, we prove that if $A$ is nonsingular, then $\tn{rank}([A ~~B]) = \tn{rank}(A)$. It is obvious that if $A$ is nonsingular, $\tn{rank}([A ~~B]) = 4 = \tn{rank}(A)$. This completes the proof.
+
+In sum, the equation (\ref{eq:5.13c}) has a solution if and only the coefficient matrix $A$ is nonsingular.
+
+(e) Based on previous results, we know that the system is not controllable if and only if $A$ is singular, which implies
+\begin{align}
+    \det{(A)} = &(k_1+k_3)M_1d_2^2 + (k_2+k_4)(d_1^2-2(k_1+k_3)M_1)M_2 + (k_2+k_4)^2M_1^2 \\
+     &+ (k_1 + k_3)^2M_2^2 - ((k_2+k_4)M_1+(k_1+k_3)M_2)d_1d_2 = 0
+\end{align}
+That is, the values of the parameters satisfy an algebraic equation.
+
+(f) We rewrite the system into the following form
+\begin{equation}
+    P(\frac{d}{dt})\mat w_1 \\ w_2 \mate = Q(\frac{d}{dt})\mat w_3 \\ w_4 \mate
+\end{equation}
+where
+\begin{align}
+    P(\xi) &= \mat 2+\xi+\xi^2 &0 \\ 0 &2+\xi+\xi^2 \\ -1 & -1 \mate \\
+    Q(\xi) &= \mat 1 &0 \\ 1 &0 \\ -2-\xi^2 &1 \mate
+\end{align}
+Let $\xi^\star = \{\xi\in\C | 2+\xi+\xi^2=0\}$, then we have $\tn{rank}(R(\xi^\star)) = 1$. That is, $R(\xi^\star)$ is not full column rank. Hence, $(w_1,w_2)$ is not observable from $(w_3,w_4)$.
+
+
+(g) Let
+\begin{equation}
+    x = [w_1, \dot{w}_1, w_2, \dot{w}_2, w_3, \dot{w}_3]^T
+\end{equation}
+then we have
+\begin{align}
+    \dot{x} &= Ax + Bw_4 \\
+    y &= Cx
+\end{align}
+where
+\begin{align}
+    A &= \mat 0 &1 &0 &0 &0 &0 \\ -\frac{k_1+k_3}{M_1} &\frac{d_1}{M_1} &0 &0 &\frac{k_3}{M_1} &0 \\ 0 &0 &0 &1 &0 &0 \\ 0 &0 &-\frac{k_2+k_4}{M_2} &-\frac{d_2}{M_2} &-\frac{k_4}{M_2} &0 \\ 0 &0 &0 &0 &0 &1 \\ \frac{k_3}{M_3} &0 &\frac{k_4}{M_3} &0 &-\frac{k_3+k_4}{M_3} &0 \mate \\
+    B &= \mat 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ \frac{1}{M_3} \mate \\
+    C &= \mat 1 &0 &0 &0 &0 &0 \\ 0 &0 &1 &0 &0 &0 \mate
+\end{align}
+
+
+\subsection{Chapter 6}
+\subsubsection{Exercise 6.2}
+\tb{Solution: }
+(a) Since $M_1(\xi)$ and $M_2(\xi)$ have no common factor, there exists a unimodular matrix $U(\xi)$ such that the left-most column of it is $M(\xi) = [M_1(\xi), M_2(\xi)]^T$. Thus, we can denote
+\begin{equation}\label{eq:6.2U}
+    U(\xi) = \mat M_1(\xi) &M_3(\xi) \\ M_2(\xi) &M_4(\xi) \mate
+\end{equation}
+Thus, 
+\begin{equation}\label{eq:6.2UI}
+    \inv{U}(\xi) = \frac{1}{C} \mat M_4(\xi) -&M_3(\xi) \\ -M_2(\xi) &M_1(\xi) \mate
+\end{equation}
+\begin{align}
+    U(\xi)\mat 1 \\ 0 \mate &= M(\xi) \\
+    \inv{U}(\xi)M(\xi) &= \mat 1 \\ 0 \mate
+\end{align}
+where $C=\det{(U(\xi))}$. For the system differential equation,
+\begin{equation}
+    R(\frac{d}{dt})w = M(\frac{d}{dt})l
+\end{equation}
+Pre-multiple it by $\inv{U}(\frac{d}{dt})$, then we obtain
+\begin{align}
+    \inv{U}(\frac{d}{dt})R(\frac{d}{dt})w = \inv{U}(\frac{d}{dt})M(\frac{d}{dt})l
+\end{align}
+Substituting (\ref{eq:6.2U}) and (\ref{eq:6.2UI}), we have
+\begin{equation}
+    \frac{1}{C} \mat M_4(\frac{d}{dt}) -&M_3(\frac{d}{dt}) \\ -M_2(\frac{d}{dt}) &M_1(\frac{d}{dt}) \mate \mat R_1(\frac{d}{dt}) \\ R_2(\frac{d}{dt}) \mate w = \mat 1 \\ 0 \mate l
+\end{equation}
+whose second row results in 
+\begin{equation}
+    (M_2(\frac{d}{dt})R_1(\frac{d}{dt}) - M_1(\frac{d}{dt})R_2(\frac{d}{dt}))w = 0
+\end{equation}
+This completes the proof.
+
+(b) Suppose the common factor of $M_1(\xi)$ and $M_2(\xi)$ is $g(\xi)$. That is,
+\begin{align}
+    M_1(\xi) &= g(\xi)\tilde{M}_1(\xi) \\
+    M_2(\xi) &= g(\xi)\tilde{M}_2(\xi)
+\end{align}
+where $\tilde M_1(\xi)$ and $\tilde M_2(\xi)$ have no common factor. Thus we have
+\begin{equation}
+    M(\xi) = \mat M_1(\xi) \\ M_2(\xi) \mate = g(\xi)\mat \tilde M_1(\xi) \\ \tilde M_2(\xi) \mate
+\end{equation}
+Similarly, take $\tilde U(\xi)$ a unimodular matrix such that
+\begin{equation}
+    \tilde U(\xi) = \mat \tilde M_1(\xi) &\tilde M_3(\xi) \\ \tilde M_2(\xi) &\tilde M_4(\xi) \mate
+\end{equation}
+\begin{equation}
+    \inv{\tilde U}(\xi) = \frac{1}{\tilde C} \mat \tilde M_4(\xi) -&\tilde M_3(\xi) \\ -\tilde M_2(\xi) &\tilde M_1(\xi) \mate
+\end{equation}
+where $\tilde C=\det{(\tilde U(\xi))}$. Then, for the system differential equation, we have
+\begin{align}
+    \inv{\tilde U}(\frac{d}{dt})R(\frac{d}{dt})w = \inv{\tilde U}(\frac{d}{dt})M(\frac{d}{dt})l
+\end{align}
+\begin{equation}
+    \frac{1}{\tilde C} \mat \tilde M_4(\frac{d}{dt}) -&\tilde M_3(\frac{d}{dt}) \\ -\tilde M_2(\frac{d}{dt}) &\tilde M_1(\frac{d}{dt}) \mate \mat R_1(\frac{d}{dt}) \\ R_2(\frac{d}{dt}) \mate w = \mat 1 \\ 0 \mate g(\frac{d}{dt}) l
+\end{equation}
+whose second row results in 
+\begin{equation}
+    (\tilde M_2(\frac{d}{dt})R_1(\frac{d}{dt}) - \tilde M_1(\frac{d}{dt})R_2(\frac{d}{dt}))w = 0
+\end{equation}
+which is the differential equation for the manifest behavior.
+
+
+\subsubsection{Exercise 6.3}
+\tb{Solution: }
+(a) Consider  the SISO systems
+\begin{align}
+    \Sigma_1&:~ p_1(\frac{d}{dt})y_1 = q_1(\frac{d}{dt})u_1 \\
+    \Sigma_2&:~ p_2(\frac{d}{dt})y_2 = q_2(\frac{d}{dt})u_2
+\end{align}
+and 
+\begin{align}
+    u_1 &= u + y_2 \\
+    u_2 &= y_1 = y
+\end{align}
+We can rearrange the equations into
+\begin{align}
+    p_1(\frac{d}{dt})y - q_1(\frac{d}{dt})u &= q_1(\frac{d}{dt})y_2 \\
+    q_2(\frac{d}{dt})y &= p_2(\frac{d}{dt})y_2
+\end{align}
+which can be further written in the form
+\begin{equation}\label{eq:M6.3}
+    R(\frac{d}{dt})w = M(\frac{d}{dt})l
+\end{equation}
+where
+\begin{equation}\label{eq:R6.3}
+    w=\mat u \\ y \mate, ~l = \mat u_1 \\ y_2 \mate, ~R(\xi) = \mat -q_1(\xi) &p_1(\xi) \\ 0 &q_2(\xi) \mate, ~M(\xi) = \mat 0 &q_1(\xi) \\ 0 &p_2(\xi) \mate
+\end{equation}
+
+(b) This is similar with Exercise 6.2. Since $\bar p_2(\xi)$ and $\bar q_1(\xi)$ have no common factor, there exists a unimodular matrix $U(\xi)$ such that the left-most column of it is $[\bar q_1(\xi), \bar p_2(\xi)]^T$. Thus, we can denote
+\begin{equation}
+    U(\xi) = \mat \bar q_1(\xi) &a(\xi) \\ \bar p_2(\xi) &b(\xi) \mate
+\end{equation}
+Thus, 
+\begin{equation}
+    \inv{U}(\xi) = \frac{1}{C} \mat b(\xi) &-a(\xi) \\ -\bar p_2(\xi) &\bar q_1(\xi) \mate
+\end{equation}
+\begin{align}
+    U(\xi)\mat 1 \\ 0 \mate &= \mat \bar q_1(\xi) \\ \bar p_2(\xi) \mate \\
+    \inv{U}(\xi)\mat \bar q_1(\xi) \\ \bar p_2(\xi) \mate &= \mat 1 \\ 0 \mate
+\end{align}
+where $C=\det{(U(\xi))}$. For the system differential equation,
+\begin{equation}
+    R(\frac{d}{dt})w = M(\frac{d}{dt})l
+\end{equation}
+we have
+\begin{align}
+    \inv{U}(\frac{d}{dt})R(\frac{d}{dt})w = \inv{U}(\frac{d}{dt})M(\frac{d}{dt})l
+\end{align}
+Substituting (\ref{eq:M6.3}) and (\ref{eq:R6.3}), we have
+\begin{equation}
+    \frac{1}{C} \mat M_4(\frac{d}{dt}) -&M_3(\frac{d}{dt}) \\ -M_2(\frac{d}{dt}) &M_1(\frac{d}{dt}) \mate \mat -q_1(\frac{d}{dt}) &p_1(\frac{d}{dt}) \\ 0 &q_2(\frac{d}{dt}) \mate \mat u \\ y \mate = c(\frac{d}{dt}) \mat 0 &1 \\ 0 &0 \mate \mat u_1 \\ y_2 \mate
+\end{equation}
+whose second row results in 
+\begin{equation}
+    (p_1(\frac{d}{dt})\bar p_2(\frac{d}{dt}) - \bar q_1(\frac{d}{dt})q_2(\frac{d}{dt})) y = \bar p_2(\frac{d}{dt})\bar q_1(\frac{d}{dt}) u
+\end{equation}
+This completes the proof.
+
+
+\subsection{Additional Exercise}
+\tb{Proof: } For the matrix $R(\xi)$ given by 
+\begin{equation}
+    R(\xi) = \mat 3+3\xi &2+5\xi+\xi^2 \\ -5+3\xi^2 &-5-4\xi+4\xi^2+\xi^3 \mate
+\end{equation}
+Consider the following unimodular matrix
+\begin{equation}
+    U(\xi) = \mat 1+\xi-\xi^2 &\xi \\ 1 - \xi & 1 \mate
+\end{equation}
+where $\det{U(\xi)} = 1$.
+Let 
+\begin{align}
+    \tilde{R}(\xi) &= U(\xi)R(\xi) = \mat 3+\xi &2+2\xi \\ -2 & -3-\xi \mate \\
+    &= \mat 3 &2 \\ -2 &-3 \mate + \mat 1 &2 \\ 0 &-1 \mate \xi \\
+    &= B + A\xi
+\end{align}
+Let $\tilde{R}(\frac{d}{dt})x=0$, then we have
+\begin{equation}
+    \tilde{R}(\frac{d}{dt})x = Bx + A\diff{x} = 0
+\end{equation}
+and 
+\begin{equation}
+    \diff{x} = -\inv{A}Bx = \mat -1 &-4 \\ 2 &3 \mate x
+\end{equation}
+which is a state space representation with $x=[x_1,x_2]^T$ as the state. Since the behavior described by $R(\xi)$ and $\tilde{R}(\xi)$ are equivalent (due to the face that $\tilde{R}(\xi) = U(\xi)R(\xi)$), the system described by $R(\frac{d}{dt})x$ is a state space representation with $x$ as the state.

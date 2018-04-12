@@ -1,0 +1,297 @@
+\documentclass[a4 paper, 12pt]{article}
+\usepackage[utf8]{inputenc}
+
+%% preamble
+\input{preamble}
+
+%% title information
+\title{
+        \Large{DISC Course: Multi-agent Network Dynamics and Games}\\
+        \vspace{1em}
+        \large\tb{Assignment 1}
+}
+\author{
+        \small Hai Zhu                          \\
+        \small Delft University of Technology   \\
+        \tt\small h.zhu@tudelft.nl
+ }
+\date{\small\ti{\today}}
+
+%% document
+\begin{document}
+%% title
+\maketitle
+
+
+\tb{E1.01 } Determine a game triplet $\mc{G}$ that defines the rock-paper-scissors game.
+
+\tb{Solution: } 
+The rock-paper-scissors game is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand. These shapes are ``rock'', ``paper'' and ``scissors''. Let $x_i \in \Omega_i = \{1,2,3\} ~(i= 1, 2)$. We denote $x_i = 1 = \tn{``rock''}$, $x_i = 2 = \tn{``scissors''}$ and $x_i = 3 = \tn{``paper''}$. In the game, we assume one score is obtained by the winner and minus one for the loser. If there is a tie, then both of the two players get zero scores. Then according to the rules of the game, we have
+\begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+                \hline
+                \diagbox{P1}{P2}        &1 &2 &3 \\
+                \hline
+                1 &(0, 0) &(1, -1) &(-1,1) \\
+                2 &(-1, 1) &(0, 0) &(1, -1) \\
+                3 &(1, -1) &(-1, 1) &(0, 0) \\
+                \hline
+        \end{tabular}
+\end{center}
+Now we can define the game by a triplet $\mc{G} = (\mc{I}, \{J_i\}_{i\in\mc{I}}, \{\mc{X}_i\}_{i\in\mc{I}})$
+% \begin{equation}
+%         \mc{G} = (\mc{I}, \{J_i\}_{i\in\mc{I}}, \{\mc{X}_i\}_{i\in\mc{I}})
+% \end{equation}
+% where
+\begin{align}
+        &\mc{I} = \{1, 2\}; \\
+        &J_1(1,1) = 0, ~J_1(1,2) = 1, ~J_1(1,3) = -1, \\
+        &J_1(2,1) = -1, ~J_1(2,2) = 0, ~J_1(2,3) = 1, \\
+        &J_1(3,1) = 1, ~J_1(3,2) = -1, ~J_1(3,3) = 0, \\
+        &J_2(1,1) = 0, ~J_2(1,2) = -1, ~J_2(1,3) = 1, \\
+        &J_2(2,1) = 1, ~J_2(2,2) = 0, ~J_2(2,3) = -1, \\
+        &J_2(3,1) = -1, ~J_2(3,2) = 1, ~J_2(3,3) = 0; \\
+        &\mc{X}_1 = \{1,2,3\}, \\
+        &\mc{X}_2 = \{1,2,3\}.
+\end{align}
+
+
+\tb{E1.02 } Prove the Banach–Picard theorem.
+\vspace{-1em}
+\begin{proof}
+Recall the Banach–Picard theorem: Let the mapping $T: \R^n \ra \R^n$ be $\ell$-Lipschitz continuous, with $\ell \in [0,1)$. Set $x(k+1) = T(x(k))$, for some $x(0) \in \R^n$. The following hold:
+\vspace{-1em}
+\begin{enumerate}[label = {\roman{enumi})}]
+        \item $\exists ! \bar{x} \in \tn{fix}(T)$;
+        \item $\norm{x(k) - \bar{x}} \leq \ell^k \norm{x(0) - \bar{x}}$;
+        \item $\lim_{k\ra\infty}x(k) = \bar{x}$.
+\end{enumerate}
+\vspace{-1em}
+We now prove the theorem.
+
+Let $(M,d)$ be a metric space where $M$ is a set and $d$ is a metric on $M$. In this case, $M=\R^n$, so we have
+\begin{equation}
+        d(x,y) = \norm{y-x}
+\end{equation}
+where $x,y \in \R^n$ and $d(x,y)$ indicates the Euclidean distance.
+
+Denote $x_k = x(k)$. First we prove that $\forall k\in\N, d(x_{k+1}, x_k) \leq \ell^kd(x_1,x_0)$ using mathematical induction.
+
+When $k=1$, since $T: \R^n \ra \R^n$ is $\ell$-Lipschitz continuous with $\ell \in [0,1)$, we have the following inequality holds
+\begin{equation}
+        d(x_2,x_1) = d(T(x_1),T(x_0)) \leq \ell d(x_1,x_0)
+\end{equation}
+Suppose the inequality holds for some $k\in\N$. Then we have 
+\begin{equation}
+        \begin{aligned}
+                d(x_{k+2},x_{k+1}) &= d(T(x_{k+1}), T(x_k)) \\ 
+                &\leq \ell d(x_{k+1},x_k) \\
+                &\leq \ell\ell^k d(x_1,x_0) \\ 
+                &= \ell^{k+1} d(x_1,x_0)
+        \end{aligned}
+\end{equation}
+Hence, the inequality holds for $\forall k \in \N$. 
+
+Next, we prove that $\{x_k\}$ is a Cauchy sequence in $(\R^n,d)$. Let $m,n\in\N$ and $m>n$, then we have
+\begin{equation}\label{eq:E1.02Cauchy}
+        \begin{aligned}
+                d(x_m, x_n) &\leq d(x_m,x_{m-1}) + d(x_{m-1},x_{m-2}) + \cdots + d(x_{n+1},x_n) \\ 
+                &\leq \ell^{m-1}d(x_1,x_0) + \ell^{m-2}d(x_1,x_0) + \cdots + \ell^n d(x_1,x_0) \\
+                &= \ell^n \sum_{i=0}^{m-n-1}\ell^i d(x_1,x_0) \\
+                &\leq \ell^n \sum_{i=0}^{\infty}\ell^i d(x_1,x_0) \\
+                &= \frac{\ell^n}{1-\ell}d(x_1,x_0)
+        \end{aligned}
+\end{equation}
+Since $\ell \in [0,1)$, the above expression for $d(x_m,x_n)$ can be arbitrary small by choosing a large $n$. Hence, $\{x_k\}$ is a Cauchy sequence and therefore it converges to some point $\bar x \in \R^n$.
+
+Next, we prove that $\bar x$ is a fixed point, that is, $\bar x \in \tn{fix}(T)$. Since $x_{k+1} = T(x_k)$, we have
+\begin{align}
+        &\lim_{k\ra\infty}x_k = \lim_{k\ra\infty}(x_{k-1}) = T(\lim_{k\ra\infty}x_{k-1}) \\
+        \implies &\bar x = T(\bar x) \label{eq:E1.02fixed}
+\end{align}
+Hence, $\bar x$ is a fixed point of $T$.
+
+Then, we prove that $\bar x$ is unique. Suppose there exists $y \in \R^n$ which is also a fixed point of $T$, then we have
+\begin{equation}\label{eq:E1.02Uni}
+        d(\bar x, y) = d(T(\bar x), T(y)) \leq \ell d(\bar x, y)
+\end{equation}
+Since $d(\bar x, y) \geq 0$ and $\ell \in [0,1)$, the above equation indicates that $0 \leq (1-\ell)d(\bar x,y) \leq 0$, which results in $d(\bar x, y) = 0 \implies \bar x = y$. Hence, $\bar x$ is the unique fixed point of $T$. This completes the proof for i).
+
+Note that for $\forall k\in\N$
+\begin{equation}
+        d(x_{k+1},\bar x) = d(T(x_k), T(\bar x)) \leq \ell d(x_k,\bar x) 
+\end{equation}
+That is,
+\begin{equation}
+        \norm{x_{k+1}-\bar x} \leq \ell\norm{x_k-\bar x}
+\end{equation}
+Hence, we have
+\begin{equation}
+        \begin{aligned}
+                \norm{x_{k}-\bar x} &\leq \ell\norm{x_{k-1}-\bar x} \\
+                &\leq \ell^2\norm{x_{k-1}-\bar x} \\
+                &\leq \cdots \\
+                &\leq \ell^k\norm{x_0-\bar x}
+        \end{aligned}
+\end{equation}
+This completes the proof for ii).
+
+We have proved that $x_k$ is a Cauchy sequence in equation (\ref{eq:E1.02Cauchy}) and converges to an unique fixed point $\bar x$ in (\ref{eq:E1.02fixed}) and (\ref{eq:E1.02Uni}). That is
+\begin{equation}
+        \lim_{k\ra\infty} x(k) = \bar x
+\end{equation}
+This completes the proof of the theorem.
+\end{proof}
+
+
+\tb{E1.08 } Let $A \in \R^{n\times n}$ be doubly-stochastic. Show that
+\begin{enumerate}[label = {\roman{enumi})}]
+        \item $I_n - A^TA \succeq 0$;
+        \item $0 \in \Lambda(I_n - A^TA)$
+\end{enumerate}
+
+\begin{proof}
+
+i) Since $A$ is doubly-stochastic, we have
+\begin{align}
+        A\tb{1} &= [\sum_{j = 1}^n a_{ij}] = \tb{1} \\
+        \tb{1}^TA &= [\sum_{i = 1}^n a_{ij}]^T = \tb{1}^T
+\end{align}
+Thus,
+\begin{align}
+        A^TA\tb{1} &= A^T\tb{1} = \tb{1} \\
+        \tb{1}^TA^TA &= \tb{1}^TA = \tb{1}^T
+\end{align}
+which implies that $A^TA$ is also doubly-stochastic. Furthermore, $A^TA$ is symmetric and thus all its eigenvalues are real number. According to Gershgorin's theorem, we have $\rho(A^TA) \leq 1$. As a result, it is true that
+\begin{equation}
+        x^TA^TAx \leq \rho(A^TA)x^Tx \leq x^Tx
+\end{equation}
+for any $x \in \R^n$. Rewrite the above equation as follows
+\begin{equation}
+        x^T(I_n - A^TA) = x^Tx - x^TA^TAx \geq 0
+\end{equation}
+which implies that $I_n - A^TA$ is semi-positive definite. That is, $I_n - A^TA \succeq 0$.
+
+ii) Based on the results of i), we have
+\begin{equation}
+        (I_n - A^TA)\tb{1} = \tb{1} - A^TA\tb{1} = \tb{1} - \tb{1} = \tb{0} = 0\cdot\tb{1}
+\end{equation}
+Hence, $I_n - A^TA$ has a zero eigenvalue,
+\begin{equation}
+        0 \in \Lambda(I_n - A^TA)
+\end{equation}
+This completes the proof.
+
+\end{proof}
+
+
+
+ 
+\tb{E1.12 } Show that if a digraph $G$ is weighted-balanced, then its Laplacian $L$ is such that $L+L^T \succeq 0$.
+
+\begin{proof}
+
+Assume that the number of vertices of the digraph $G$ is $N$. Since $G$ is weighted-balanced, we have 
+\begin{equation}\label{eq:E1.12wei}
+        d_{in}(i) = d_{out}(i), \quad i = 1,\dots,N
+\end{equation}
+where $d_{in}$ and $d_{out}$ are in-degree and out-degree respectively. Denote $A$ the weighted adjacency matrix, $D_{out} = diag[d_{out}(1), \dots, d_{out}(N)]$ the out-degree matrix, then
+\begin{align}
+        d_{out}(i) &= \sum_{k\neq i}^N a_{ik} \\ 
+        d_{in}(i) &= \sum_{k\neq i}^N a_{ki} \\ 
+\end{align}
+Thus
+\begin{equation}
+        \sum_{k\neq i}^N a_{ik} = \sum_{k\neq i}^N a_{ki}
+\end{equation}
+
+Denote $L$ the Laplacian matrix of $G$, 
+\begin{equation}
+        L = D_{out} - A = diag[d_{out}(1), \dots, d_{out}(N)] - A
+\end{equation}
+We have
+\begin{equation}
+        \begin{aligned}
+                L+L^T &= 2\times diag[d_{out}(1), \dots, d_{out}(N)] - A - A^T \\
+                &= \mat 
+                2\sum_{k\neq 1}^N a_{1k}        &-a_{12}-a_{21}                 &\cdots         &-a_{1N}-a_{N1} \\
+                -a_{21}-a_{12}                  &2\sum_{k\neq 2}^N a_{2k}       &\cdots         &-a_{2N}-a_{N2} \\
+                \vdots                          &\vdots                         &\ddots         &\vdots         \\
+                -a_{N1}-a_{1N}                  &-a_{N2}-a_{2N}                 &\cdots         &2\sum_{k\neq N}^N a_{Nk}
+                \mate
+        \end{aligned}
+\end{equation}
+
+Let $P=L+L^T$, and
+\begin{align}
+        R_i = \sum_{k\neq i}^N \abs{p_{ik}} = \abs{\sum_{k\neq i}^Na_{ik} + \sum_{k\neq i}^Na_{ki}} = 2\sum_{k\neq i}^N a_{ik}
+\end{align}
+\begin{equation}
+        p_{ii} = 2\sum_{k\neq i}^N a_{ik}
+\end{equation}
+According to the Gershgorin theorem, every eigenvalue of $P$ lies within at least one of the Gershgorin discs $D_i(p_{ii}, R_i)$. Note that $P$ is a symmetric matrix, so all its eigenvalues are real. Thus,
+\begin{equation}
+        \Lambda(P) \subset \cup_{i\in\{1,...,n\}} \{ x\in\R \ | \norm{x-p_{ii}} \leq R_i \}
+\end{equation}
+which implies that all eigenvalues of $P$ are non-negative. Hence, $P=L+L^T$ is semi-positive definite, that is, $L+L^T \succeq 0$.
+
+\end{proof}
+
+
+% \tb{E1.13 } Let $A \in \mathbb{R}^{n \times n}$ be a row-stochastic adjacency matrix and let $L$ be the Laplacian matrix of the digraph associated with $A$. Characterize $\Lambda(L)$ as function of $\Lambda(A)$.
+
+% \tb{Solution: } 
+% Denote the digraph associated with $A$ as $G$. $A$ is row-stochastic, thus
+% \begin{equation}
+%         \sum_{j=1}^N = a_{ij} = 1, \quad \forall i = 1, 2, \dots, N
+% \end{equation}
+% \begin{equation}
+%         d_{out}(i) = 1, \quad D_{out} = I
+% \end{equation}
+% Thus,
+% \begin{equation}
+%         L = D_{out} - A = I - A
+% \end{equation}
+% % Denote $\lambda_A \in \Lambda(A)$, $\lambda_L \in \Lambda(L)$ the eigenvalues of $A$ and $L$ respectively, then
+% % \begin{align}
+% %         \abs{\lambda_AI - A} &= 0 \\
+% %         \abs{\lambda_LI - L} &= \abs{(1-\lambda_L)I - A} = 0
+% % \end{align}
+% % Thus
+% % \begin{align}
+% %         1-\lambda_L &= \lambda_A \\
+% %         1-\lambda_A &= \lambda_L
+% % \end{align}
+
+% According to the Gershgorin theorem,
+% \begin{equation}
+%         \Lambda(A) \subset \cup_{i\in\{1,...,n\}}\{z\in \mathbb{C} | \norm{z-a_{ii}}\le \sum_{j\ne i}^n\norm{a_{ij}} \}
+% \end{equation}
+% \begin{equation}
+%         \Lambda(L) \subset \cup_{i\in\{1,...,n\}}\{z\in \mathbb{C} | \norm{z-(1-a_{ii})}\le \sum_{j\ne i}^n\norm{a_{ij}} \}
+% \end{equation}
+% which implies that the eigenvalues of $L$ are within  $\Lambda(A)$ rotated in the complex plane around the imaginary axis shifted one unit to the right.
+
+% More precisely, denote $\lambda_A \in \Lambda(A)$, $\lambda_L \in \Lambda(L)$ the eigenvalues of $A$ and $L$ respectively, then
+% \begin{align}
+%         \abs{\lambda_AI - A} &= 0 \\
+%         \abs{\lambda_LI - L} &= \abs{(1-\lambda_L)I - A} = 0
+% \end{align}
+% Thus
+% \begin{align}
+%         \lambda_A &= 1-\lambda_L \\
+%         \lambda_L &= 1-\lambda_A
+% \end{align}
+
+
+%% Bibliography
+% \bibliographystyle{plain}
+% \begin{thebibliography}{99}
+
+%         \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+            
+% \end{thebibliography}
+
+
+\end{document}

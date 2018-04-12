@@ -1,0 +1,93 @@
+% preamble.tex
+
+%% packages
+% IEEE conference needed
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage{amsmath}
+% \usepackage{mathptmx}               % comment for non-IEEE style
+\usepackage{graphics}
+\usepackage{epsfig}
+% others
+\usepackage{nicefrac}               % For nice fraction like 1/2
+\usepackage{geometry}               % For setting layout
+\usepackage{enumitem}               % For customizing items
+
+
+%% settings for normal a4 layout
+% set indent
+% \setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+% set layout
+% \geometry{a4paper,scale=0.8}
+\geometry{a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm}
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+%% new commands
+% text
+\newcommand{\tn}[1]{\textnormal{#1}}
+\newcommand{\tb}[1]{\textbf{#1}}
+\newcommand{\ti}[1]{\textit{#1}}
+% matrices
+\newcommand{\mat}[0]{\begin{bmatrix}}
+\newcommand{\mate}[0]{\end{bmatrix}}
+% states
+\newcommand{\vx}{\mathbf{x}}
+\newcommand{\vp}{\mathbf{p}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\va}{\mathbf{a}}
+\newcommand{\vb}{\mathbf{b}}
+\newcommand{\vz}{\mathbf{z}}
+\newcommand{\vd}{\mathbf{d}}
+\newcommand{\vu}{\mathbf{u}}
+\newcommand{\vf}{\mathbf{f}}
+\newcommand{\vg}{\mathbf{g}}
+\newcommand{\vh}{\mathbf{h}}
+\newcommand{\vs}{\mathbf{s}}
+% sets
+\newcommand{\W}{\mathcal{W}}        % Workspace
+\newcommand{\X}{\mathcal{X}}        % Configuration space
+\newcommand{\Obs}{\mathcal{O}}      % Obstacle regions
+\newcommand{\A}{\mathcal{A}}        % Robot occupied space
+\newcommand{\B}{\mathcal{B}}        % Workspace
+\newcommand{\U}{\mathcal{U}}        % Control space
+\newcommand{\Z}{\mathcal{Z}}        % General decision variables space
+\newcommand{\rN}{\mathcal{N}}       % Agent index sets
+\newcommand{\oM}{\mathcal{M}}       % Dynamic obstacle index sets
+% numbers set
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+% operator
+\newcommand\norm[1]{\left\|#1\right\|}      % Big norm
+\newcommand\abs[1]{\left|#1\right|}         % Big abs
+\newcommand\inv[1]{#1^{-1}}                 % Inverse
+\newcommand{\atwo}{\mathrm{atan2}}
+\newcommand{\diff}{\frac{d}{dt}}
+\newcommand{\ddiff}{\frac{d^2}{dt^2}}
+% statistics
+\newcommand{\hx}{\hat{\mathbf{x}}}
+\newcommand{\hp}{\hat{\mathbf{p}}}
+\newcommand{\vsigma}{\mathbf{\sigma}}
+\newcommand{\vomega}{\mathbf{\omega}}
+\newcommand{\mN}{\mathcal{N}}
+\newcommand{\pr}{\textnormal{Pr}}
+% symbols
+\newcommand{\eps}{\varepsilon}
+% other
+\newcommand{\ra}{\rightarrow}
+\newcommand{\RA}{\Rightarrow}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\quater}{\frac{1}{4}}
+
+
+%% theorems
+\newtheorem{rmk}{\textbf{Remark}}
+\newtheorem{thm}{\textbf{Theorem}}
+\newtheorem{prop}{\textbf{Proposition}}
+\newtheorem{prob}{\textbf{Problem}}
+\newtheorem{defi}{\textbf{Definition}}
+\newtheorem{algo}{\textbf{Algorithm}}
+\newtheorem{cons}{\textbf{Constraint}}
