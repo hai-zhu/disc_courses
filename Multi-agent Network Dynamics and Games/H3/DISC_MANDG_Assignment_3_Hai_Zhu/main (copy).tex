@@ -8,7 +8,7 @@
 \title{
         \Large{DISC Course: Multi-agent Network Dynamics and Games}\\
         \vspace{1em}
-        \large\tb{Homework 4}
+        \large\tb{Homework 3 \& 4}
 }
 \author{
         \small Hai Zhu                          \\
@@ -22,6 +22,223 @@
 %% title
 \maketitle
 
+\section{Homework 3}
+~~~~
+\tb{Problem 1}
+
+\tb{Solution: }
+\tb{a)} For different values of $x$,
+\begin{itemize}
+        \item Case 1: $x=0$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,0 \\ 
+                \hline
+                0,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There are two pure strategy Nash equilibria: $(e_1,e_1)$ and $(e_2,e_2)$.
+
+        Apparently, $(e_2,e_2)$ is a strict symmetric Nash equilibrium. Thus, $e_2$ is an evolutionary stable strategy (Corollary 5.53 in \cite{b1}). For $e_1$, since we have $\pi(e_1,e_1)>\pi(e_2,e_1)$, thus $e_1$ is also an evolutionary stable strategy.
+
+        \item Case 2: $x=1$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,1 \\ 
+                \hline
+                1,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There are two pure strategy Nash equilibria: $(e_1,e_1)$ and $(e_2,e_2)$.
+
+        Similarly, since $(e_2,e_2)$ is a strict symmetric Nash equilibrium. Thus, $e_2$ is an evolutionary stable strategy (Corollary 5.53 in \cite{b1}). For $e_1$, we have $\pi(e_1,e_1)=\pi(e_2,e_1)$ but $\pi(e_1,e_2)<\pi(e_2,e_2)$. So $e_1$ is not an evolutionary stable strategy.
+
+        \item Case 3: $x = 2$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,2 \\ 
+                \hline
+                2,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There is only one pure strategy Nash equilibria: $(e_2,e_2)$. 
+
+        Note that the only one pure strategy Nash equilibrium is strict symmetric. Thus $e_2$ is the evolutionary stable strategy (Corollary 5.53 in \cite{b1}). 
+
+\end{itemize}
+
+\tb{b)} Recall the definition of weakly dominated strategy \cite{b1}:
+\begin{defi}
+        A strategy $s_i$ of player $i$ is termed weakly dominated if there exists another strategy $t_i$ of player $i$ satisfying the following two conditions:\vspace{-0.5em}
+
+        (i) For every strategy vector $s_{-i}$ of other players,
+        \begin{equation}\label{eq:WD1}
+                \pi(s_i,s_{-i}) \leq \pi(t_i,s_{-i})
+        \end{equation}
+        \vspace{-2.5em}
+
+        (ii) There exists a strategy vector $t_{-i}$ of other players such that 
+        \begin{equation}\label{eq:WD2}
+                \pi(s_i,t_{-i}) < \pi(s_i,t_{-i})
+        \end{equation}
+\end{defi}
+If the equal condition in equation (\ref{eq:WD1}) is removed, then the above definition is refined to ``strictly dominated''.
+
+In the given game, since $X$ is weakly dominated and $(X,X)$ is a Nash equilibrium, we have 
+\begin{align}
+        & c = a \\
+        & d > b
+\end{align}
+We can compute
+\begin{equation}
+        \pi(X,X) = a
+\end{equation}
+\begin{equation}
+        \pi(Y,X) = c
+\end{equation}
+We further compute that 
+\begin{equation}
+        \pi(X,Y) = b
+\end{equation}
+\begin{equation}
+        \pi(Y,Y) = d
+\end{equation}
+Thus we have $\pi(X,X) = \pi(Y,X)$ but $\pi(X,Y) < \pi(Y,Y)$. Hence, $X$ is not an evolutionary stable strategy.
+
+
+
+\tb{Problem 2}
+
+\tb{Solution:} \tb{a)} 
+Let $s_1 = e_1$ the first pure strategy of player 1. We can suppose $t_i = e_2, e_3, e_4$ and check if it satisfies the above conditions. The result they all do not satisfy the conditions since 
+\begin{equation}
+        \begin{aligned}
+                \pi(e_1,e_2) > \pi(e_2,e_2) \\
+                \pi(e_1,e_1) > \pi(e_3,e_1) \\
+                \pi(e_1,e_3) > \pi(e_4,e_3)
+        \end{aligned}
+\end{equation}
+which contradicts with equation (\ref{eq:WD1}). Hence, the first pure strategy of player 1 is not dominated by a pure strategy.
+
+\tb{b)} We suppose that it is weakly dominated by a mixed strategy $p = [p_1,p_2,p_3,p_4]^T$. Then the payoff of player 1 by choosing this mixed strategy is 
+\begin{equation}
+        \pi(p,q) = p^TAq
+\end{equation}
+where $q = [q_1,q_2,q_3,q_4]$ is a strategy of the other player. Then according to the definition of ``weakly dominated'', we can get the following condition
+\begin{align}
+        &p^TAq \geq e_1^TAq, \hspace{0.2cm} \forall q\in Q \\
+        &p^TAq > e_1^Tq, \hspace{0.2cm} \exists q\in Q
+\end{align}
+where $Q$ is the strategy space of the other player. The above conditions can be written more clearly as follows
+\begin{align}
+        &[p_1,p_2,p_3,p_4]A \geq [1,2,0,-2] \\
+        &\norm{[p_1,p_2,p_3,p_4]A} > \norm{[1,2,0,-2]} \\
+        &p_1 + p_2 + p_3 + p_4 = 1
+\end{align}
+To solve the above underdetermined equation, we can use optimization based method such as linear programming. Here is a solution $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$. Furthermore, we can valid that this mixed strategy actually strictly dominants the first pure strategy.
+
+\tb{c)} Yes. We have shown that the mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$ strictly dominants the first pure strategy in previous question.
+
+\tb{d)} No, it is impossible. According to the Theorem 5.20 in \cite{b1}, in every Nash equilibrium of a game in strategic form, the pure strategy strictly dominated by a mixed strategy is chosen by the player with probability 0. Since we have shown that the first pure strategy of player 1 is strictly dominated by a mixed strategy, it is impossible that it is at a Nash equilibrium.
+
+\tb{e)} Use the definition of strictly dominated, we can valid the following statements:
+\begin{itemize}
+        \item The first pure strategic $e_1$ of player 1 is strictly dominated by a mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$.
+        \item The forth pure strategic $e_4$ of player 1 is strictly dominated by a mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$.
+\end{itemize}
+Therefore, the set of Nash equilibrium is confined to the space of strategies $e_2$ and $e_3$, esulting in the following two-player payoff table:
+\begin{center}
+        \begin{tabular}{ | m{1em} | m{1em}| } 
+        \hline
+        1,1& 1,4 \\ 
+        \hline
+        4,1 & 3,3 \\ 
+        \hline
+        \end{tabular}
+\end{center}
+It can be verified that 
+\begin{align}
+        \pi(e_3,e_3) > \pi(e_2,e_3) \label{eq:2.Na1} \\
+        \pi(e_3,e_3) > \pi(e_3,e_2) \label{eq:2.Na2}
+\end{align}
+Hence, $(e_3,e_3)$ is a pure strategy Nash equilibrium of the symmetric game.
+
+\tb{f)} According to the Theorem 5.51 in \cite{b1}, for any two-player symmetric game, an evolutionary stable equilibrium is also a Nash equilibrium. Since we have shown that there is only one Nash equilibrium $(e_3,e_3)$ of the given game in previous questions, we only need to check if it is evolutionary stable. 
+
+Please observe equation (\ref{eq:2.Na1}) and (\ref{eq:2.Na2}). It shows that $(e_3,e_3)$ is a strict symmetric Nash equilibrium, then the conditions for ESS hold (Corollary 5.53 \cite{b1}). Hence, $e_3$ is an evolutionary stable strategy in this game.
+
+
+\tb{Problem 3}
+\begin{proof}
+
+To show that ``can be'', I only need to give an example to support the statement. Consider the following payoff matrix
+\begin{equation}
+        \left[
+        \begin{array}{ccc}
+        0 & 1 & 0 \\
+        0 & 0 & 2 \\
+        0 & 0 & 1
+        \end{array}
+        \right]
+\end{equation}
+The replicator dynamics are
+\begin{equation}
+        \left[
+        \begin{array}{c}
+        \dot{x_1} \\
+        \dot{x_2} \\
+        \dot{x_3} 
+        \end{array}
+        \right]
+        =
+        \left[
+        \begin{array}{c}
+        -x_1(x_1x_2 - x_2 + x_3(2x_2 + x_3))\\
+        -x_2(x_1x_2 - 2x_3 + x_3(2x_2 + x_3))\\
+        -x_3(x_1x_2 - x_3 + x_3(x_2 + x_3))
+        \end{array}
+        \right]
+\end{equation}
+It can be verified that in this game, $(e_1,e_1)$ is the unique Nash equilibrium. However, $e_1$ is not Lyapunov stable. The proof is given below: Define a ball around $e^1$ with $r>0$ as $B_r=\{x\in \Delta | \hspace{0.5em}||x-e_1|| \le r\}$. Furthermore, let $V(x)=\frac{1}{2}^Tx$ be a Lyapunov function candidate. Then we have $\dot{V(x)}=x^T\dot{x}$. 
+
+According to the Theorem 4.3 from  if $\forall x^* \in B_r$ if $\dot{V(x)}>0$ then $e^1$ is unstable. If we check for the neighbor mixed strategy of $e^1$ $x_{test}=[1-\epsilon \hspace{0.5em} \epsilon \hspace{0.5em}0]^T | \epsilon >0$ we get $\dot{V(x_{test})=
+e^2*(2*e^2 - 3*e + 1)>0}$ with $\epsilon$ sufficiently small. This concludes the proof that a state can be a $\omega$-limit point without being stable.
+
+
+\end{proof}
+
+
+\tb{Problem 4}
+\begin{proof}
+
+
+For this theorem, there is a proof in \cite{b4} (Proposition 3.13).
+        
+% Recall the definition of asymptotically stable set (Theorem 6.3 \cite{b2}):
+% \begin{defi}
+%         Suppose that $A \in C$ is a closed set. Then $A$ is asymptotically stable if and only if there exists a neighborhood $D$ of $A$ and a continuous function $v:D\ra R_+$ satisfying the following conditions:
+%         \begin{equation}
+%                 v(x) = 0 \hspace{0.4cm} \tn{if and only if } x\in A,
+%         \end{equation}
+%         \begin{equation}
+%                 v(\xi(t,x)) < v(x) \hspace{0.4cm} \tn{if } x\notin A, t>0, \tn{and } \xi(s,x)\in D ~~\forall s\in[0,t].
+%         \end{equation}
+% \end{defi}
+
+\end{proof}
+
+
+\section{Homework 4}
+~~~~~
 \tb{Problem 1}
 
 \tb{Solution:}

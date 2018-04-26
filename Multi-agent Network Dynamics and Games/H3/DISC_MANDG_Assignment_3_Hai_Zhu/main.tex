@@ -8,7 +8,7 @@
 \title{
         \Large{DISC Course: Multi-agent Network Dynamics and Games}\\
         \vspace{1em}
-        \large\tb{Assignment 1}
+        \large\tb{Homework 3}
 }
 \author{
         \small Hai Zhu                          \\
@@ -22,276 +22,261 @@
 %% title
 \maketitle
 
+% \section{Homework 3}
+% ~~~~
+\tb{Problem 1}
 
-\tb{E1.01 } Determine a game triplet $\mc{G}$ that defines the rock-paper-scissors game.
+\tb{Solution: }
+\tb{a)} For different values of $x$,
+\begin{itemize}
+        \item Case 1: $x=0$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,0 \\ 
+                \hline
+                0,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There are two pure strategy Nash equilibria: $(e_1,e_1)$ and $(e_2,e_2)$.
 
-\tb{Solution: } 
-The rock-paper-scissors game is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand. These shapes are ``rock'', ``paper'' and ``scissors''. Let $x_i \in \Omega_i = \{1,2,3\} ~(i= 1, 2)$. We denote $x_i = 1 = \tn{``rock''}$, $x_i = 2 = \tn{``scissors''}$ and $x_i = 3 = \tn{``paper''}$. In the game, we assume one score is obtained by the winner and minus one for the loser. If there is a tie, then both of the two players get zero scores. Then according to the rules of the game, we have
+        Apparently, $(e_2,e_2)$ is a strict symmetric Nash equilibrium. Thus, $e_2$ is an evolutionary stable strategy (Corollary 5.53 in \cite{b1}). For $e_1$, since we have $\pi(e_1,e_1)>\pi(e_2,e_1)$, thus $e_1$ is also an evolutionary stable strategy.
+
+        \item Case 2: $x=1$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,1 \\ 
+                \hline
+                1,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There are two pure strategy Nash equilibria: $(e_1,e_1)$ and $(e_2,e_2)$.
+
+        Similarly, since $(e_2,e_2)$ is a strict symmetric Nash equilibrium. Thus, $e_2$ is an evolutionary stable strategy (Corollary 5.53 in \cite{b1}). For $e_1$, we have $\pi(e_1,e_1)=\pi(e_2,e_1)$ but $\pi(e_1,e_2)<\pi(e_2,e_2)$. So $e_1$ is not an evolutionary stable strategy.
+
+        \item Case 3: $x = 2$. \\
+        The payoff matrix is 
+        \begin{center}
+                \begin{tabular}{ | m{1em} | m{1em}| } 
+                \hline
+                1,1& 2,2 \\ 
+                \hline
+                2,2 & 3,3 \\ 
+                \hline
+                \end{tabular}
+        \end{center}
+        There is only one pure strategy Nash equilibria: $(e_2,e_2)$. 
+
+        Note that the only one pure strategy Nash equilibrium is strict symmetric. Thus $e_2$ is the evolutionary stable strategy (Corollary 5.53 in \cite{b1}). 
+
+\end{itemize}
+
+\tb{b)} Recall the definition of weakly dominated strategy \cite{b1}:
+\begin{defi}
+        A strategy $s_i$ of player $i$ is termed weakly dominated if there exists another strategy $t_i$ of player $i$ satisfying the following two conditions:\vspace{-0.5em}
+
+        (i) For every strategy vector $s_{-i}$ of other players,
+        \begin{equation}\label{eq:WD1}
+                \pi(s_i,s_{-i}) \leq \pi(t_i,s_{-i})
+        \end{equation}
+        \vspace{-2.5em}
+
+        (ii) There exists a strategy vector $t_{-i}$ of other players such that 
+        \begin{equation}\label{eq:WD2}
+                \pi(s_i,t_{-i}) < \pi(s_i,t_{-i})
+        \end{equation}
+\end{defi}
+If the equal condition in equation (\ref{eq:WD1}) is removed, then the above definition is refined to ``strictly dominated''.
+
+In the given game, since $X$ is weakly dominated and $(X,X)$ is a Nash equilibrium, we have 
+\begin{align}
+        & c = a \\
+        & d > b
+\end{align}
+We can compute
+\begin{equation}
+        \pi(X,X) = a
+\end{equation}
+\begin{equation}
+        \pi(Y,X) = c
+\end{equation}
+We further compute that 
+\begin{equation}
+        \pi(X,Y) = b
+\end{equation}
+\begin{equation}
+        \pi(Y,Y) = d
+\end{equation}
+Thus we have $\pi(X,X) = \pi(Y,X)$ but $\pi(X,Y) < \pi(Y,Y)$. Hence, $X$ is not an evolutionary stable strategy.
+
+
+
+\tb{Problem 2}
+
+\tb{Solution:} \tb{a)} 
+Let $s_1 = e_1$ the first pure strategy of player 1. We can suppose $t_i = e_2, e_3, e_4$ and check if it satisfies the above conditions. The result they all do not satisfy the conditions since 
+\begin{equation}
+        \begin{aligned}
+                \pi(e_1,e_2) > \pi(e_2,e_2) \\
+                \pi(e_1,e_1) > \pi(e_3,e_1) \\
+                \pi(e_1,e_3) > \pi(e_4,e_3)
+        \end{aligned}
+\end{equation}
+which contradicts with equation (\ref{eq:WD1}). Hence, the first pure strategy of player 1 is not dominated by a pure strategy.
+
+\tb{b)} We suppose that it is weakly dominated by a mixed strategy $p = [p_1,p_2,p_3,p_4]^T$. Then the payoff of player 1 by choosing this mixed strategy is 
+\begin{equation}
+        \pi(p,q) = p^TAq
+\end{equation}
+where $q = [q_1,q_2,q_3,q_4]$ is a strategy of the other player. Then according to the definition of ``weakly dominated'', we can get the following condition
+\begin{align}
+        &p^TAq \geq e_1^TAq, \hspace{0.2cm} \forall q\in Q \\
+        &p^TAq > e_1^Tq, \hspace{0.2cm} \exists q\in Q
+\end{align}
+where $Q$ is the strategy space of the other player. The above conditions can be written more clearly as follows
+\begin{align}
+        &[p_1,p_2,p_3,p_4]A \geq [1,2,0,-2] \\
+        &\norm{[p_1,p_2,p_3,p_4]A} > \norm{[1,2,0,-2]} \\
+        &p_1 + p_2 + p_3 + p_4 = 1
+\end{align}
+To solve the above underdetermined equation, we can use optimization based method such as linear programming. Here is a solution $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$. Furthermore, we can valid that this mixed strategy actually strictly dominants the first pure strategy.
+
+\tb{c)} Yes. We have shown that the mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$ strictly dominants the first pure strategy in previous question.
+
+\tb{d)} No, it is impossible. According to the Theorem 5.20 in \cite{b1}, in every Nash equilibrium of a game in strategic form, the pure strategy strictly dominated by a mixed strategy is chosen by the player with probability 0. Since we have shown that the first pure strategy of player 1 is strictly dominated by a mixed strategy, it is impossible that it is at a Nash equilibrium.
+
+\tb{e)} Use the definition of strictly dominated, we can valid the following statements:
+\begin{itemize}
+        \item The first pure strategic $e_1$ of player 1 is strictly dominated by a mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$.
+        \item The forth pure strategic $e_4$ of player 1 is strictly dominated by a mixed strategy $p = [0, \frac{2}{3}, \frac{1}{3}, 0]^T$.
+\end{itemize}
+Therefore, the set of Nash equilibrium is confined to the space of strategies $e_2$ and $e_3$, esulting in the following two-player payoff table:
 \begin{center}
-        \begin{tabular}{|c|c|c|c|c|}
-                \hline
-                \diagbox{P1}{P2}        &1 &2 &3 \\
-                \hline
-                1 &(0, 0) &(1, -1) &(-1,1) \\
-                2 &(-1, 1) &(0, 0) &(1, -1) \\
-                3 &(1, -1) &(-1, 1) &(0, 0) \\
-                \hline
+        \begin{tabular}{ | m{1em} | m{1em}| } 
+        \hline
+        1,1& 1,4 \\ 
+        \hline
+        4,1 & 3,3 \\ 
+        \hline
         \end{tabular}
 \end{center}
-Now we can define the game by a triplet $\mc{G} = (\mc{I}, \{J_i\}_{i\in\mc{I}}, \{\mc{X}_i\}_{i\in\mc{I}})$
-% \begin{equation}
-%         \mc{G} = (\mc{I}, \{J_i\}_{i\in\mc{I}}, \{\mc{X}_i\}_{i\in\mc{I}})
-% \end{equation}
-% where
+It can be verified that 
 \begin{align}
-        &\mc{I} = \{1, 2\}; \\
-        &J_1(1,1) = 0, ~J_1(1,2) = 1, ~J_1(1,3) = -1, \\
-        &J_1(2,1) = -1, ~J_1(2,2) = 0, ~J_1(2,3) = 1, \\
-        &J_1(3,1) = 1, ~J_1(3,2) = -1, ~J_1(3,3) = 0, \\
-        &J_2(1,1) = 0, ~J_2(1,2) = -1, ~J_2(1,3) = 1, \\
-        &J_2(2,1) = 1, ~J_2(2,2) = 0, ~J_2(2,3) = -1, \\
-        &J_2(3,1) = -1, ~J_2(3,2) = 1, ~J_2(3,3) = 0; \\
-        &\mc{X}_1 = \{1,2,3\}, \\
-        &\mc{X}_2 = \{1,2,3\}.
+        \pi(e_3,e_3) > \pi(e_2,e_3) \label{eq:2.Na1} \\
+        \pi(e_3,e_3) > \pi(e_3,e_2) \label{eq:2.Na2}
 \end{align}
+Hence, $(e_3,e_3)$ is a pure strategy Nash equilibrium of the symmetric game.
+
+\tb{f)} According to the Theorem 5.51 in \cite{b1}, for any two-player symmetric game, an evolutionary stable equilibrium is also a Nash equilibrium. Since we have shown that there is only one Nash equilibrium $(e_3,e_3)$ of the given game in previous questions, we only need to check if it is evolutionary stable. 
+
+Please observe equation (\ref{eq:2.Na1}) and (\ref{eq:2.Na2}). It shows that $(e_3,e_3)$ is a strict symmetric Nash equilibrium, then the conditions for ESS hold (Corollary 5.53 \cite{b1}). Hence, $e_3$ is an evolutionary stable strategy in this game.
 
 
-\tb{E1.02 } Prove the Banach–Picard theorem.
-\vspace{-1em}
+\tb{Problem 3}
 \begin{proof}
-Recall the Banach–Picard theorem: Let the mapping $T: \R^n \ra \R^n$ be $\ell$-Lipschitz continuous, with $\ell \in [0,1)$. Set $x(k+1) = T(x(k))$, for some $x(0) \in \R^n$. The following hold:
-\vspace{-1em}
-\begin{enumerate}[label = {\roman{enumi})}]
-        \item $\exists ! \bar{x} \in \tn{fix}(T)$;
-        \item $\norm{x(k) - \bar{x}} \leq \ell^k \norm{x(0) - \bar{x}}$;
-        \item $\lim_{k\ra\infty}x(k) = \bar{x}$.
-\end{enumerate}
-\vspace{-1em}
-We now prove the theorem.
 
-Let $(M,d)$ be a metric space where $M$ is a set and $d$ is a metric on $M$. In this case, $M=\R^n$, so we have
+To show that ``can be'', I only need to give an example to support the statement. Consider the following payoff matrix
 \begin{equation}
-        d(x,y) = \norm{y-x}
+        \left[
+        \begin{array}{ccc}
+        0 & 1 & 0 \\
+        0 & 0 & 2 \\
+        0 & 0 & 1
+        \end{array}
+        \right]
 \end{equation}
-where $x,y \in \R^n$ and $d(x,y)$ indicates the Euclidean distance.
-
-Denote $x_k = x(k)$. First we prove that $\forall k\in\N, d(x_{k+1}, x_k) \leq \ell^kd(x_1,x_0)$ using mathematical induction.
-
-When $k=1$, since $T: \R^n \ra \R^n$ is $\ell$-Lipschitz continuous with $\ell \in [0,1)$, we have the following inequality holds
+The replicator dynamics are
 \begin{equation}
-        d(x_2,x_1) = d(T(x_1),T(x_0)) \leq \ell d(x_1,x_0)
+        \left[
+        \begin{array}{c}
+        \dot{x_1} \\
+        \dot{x_2} \\
+        \dot{x_3} 
+        \end{array}
+        \right]
+        =
+        \left[
+        \begin{array}{c}
+        -x_1(x_1x_2 - x_2 + x_3(2x_2 + x_3))\\
+        -x_2(x_1x_2 - 2x_3 + x_3(2x_2 + x_3))\\
+        -x_3(x_1x_2 - x_3 + x_3(x_2 + x_3))
+        \end{array}
+        \right]
 \end{equation}
-Suppose the inequality holds for some $k\in\N$. Then we have 
-\begin{equation}
-        \begin{aligned}
-                d(x_{k+2},x_{k+1}) &= d(T(x_{k+1}), T(x_k)) \\ 
-                &\leq \ell d(x_{k+1},x_k) \\
-                &\leq \ell\ell^k d(x_1,x_0) \\ 
-                &= \ell^{k+1} d(x_1,x_0)
-        \end{aligned}
-\end{equation}
-Hence, the inequality holds for $\forall k \in \N$. 
 
-Next, we prove that $\{x_k\}$ is a Cauchy sequence in $(\R^n,d)$. Let $m,n\in\N$ and $m>n$, then we have
-\begin{equation}\label{eq:E1.02Cauchy}
-        \begin{aligned}
-                d(x_m, x_n) &\leq d(x_m,x_{m-1}) + d(x_{m-1},x_{m-2}) + \cdots + d(x_{n+1},x_n) \\ 
-                &\leq \ell^{m-1}d(x_1,x_0) + \ell^{m-2}d(x_1,x_0) + \cdots + \ell^n d(x_1,x_0) \\
-                &= \ell^n \sum_{i=0}^{m-n-1}\ell^i d(x_1,x_0) \\
-                &\leq \ell^n \sum_{i=0}^{\infty}\ell^i d(x_1,x_0) \\
-                &= \frac{\ell^n}{1-\ell}d(x_1,x_0)
-        \end{aligned}
-\end{equation}
-Since $\ell \in [0,1)$, the above expression for $d(x_m,x_n)$ can be arbitrary small by choosing a large $n$. Hence, $\{x_k\}$ is a Cauchy sequence and therefore it converges to some point $\bar x \in \R^n$.
+A $\omega$-limit point is a point where the dynamics are zero. For the replicator dynamics (RP) means that $\pi(e^i,x) = \pi(x,x)$. Furthermore, if $\hat{x}\in \Delta$ and is a $\omega$-limit point then $\hat{x} \in \Delta^{NE}$ (Preposition 3.5 in \cite{b2}). 
 
-Next, we prove that $\bar x$ is a fixed point, that is, $\bar x \in \tn{fix}(T)$. Since $x_{k+1} = T(x_k)$, we have
-\begin{align}
-        &\lim_{k\ra\infty}x_k = \lim_{k\ra\infty}(x_{k-1}) = T(\lim_{k\ra\infty}x_{k-1}) \\
-        \implies &\bar x = T(\bar x) \label{eq:E1.02fixed}
-\end{align}
-Hence, $\bar x$ is a fixed point of $T$.
+It can be verified that in this game, $(e_1,e_1)$ is the unique Nash equilibrium. However, $e_1$ is not Lyapunov stable. The proof is given below: Define a ball around $e^1$ with $r>0$ as $B_r=\{x\in \Delta | \hspace{0.5em}||x-e_1|| \le r\}$. Furthermore, let $V(x)=\frac{1}{2}^Tx$ be a Lyapunov function candidate. Then we have $\dot{V(x)}=x^T\dot{x}$. According to the Theorem 4.3 in \cite{b5} for $\forall x^* \in B_r$ if $\dot{V(x)}>0$ then $e^1$ is unstable. If we check for the neighbor mixed strategy of $e^1$ $x_{test}=[1-\epsilon \hspace{0.5em} \epsilon \hspace{0.5em}0]^T | \epsilon >0$ we get $\dot{V(x_{test})=
+e^2*(2*e^2 - 3*e + 1)>0}$ with $\epsilon$ sufficiently small. So $e_1$ is unstable. Futhermore, since all $\omega$-limit point of all orbits x(t) in the interior of simplex converge to $e_1$ because it is the strongly dominant strategy. Hence, The state is unstable. This completes the proof.
 
-Then, we prove that $\bar x$ is unique. Suppose there exists $y \in \R^n$ which is also a fixed point of $T$, then we have
-\begin{equation}\label{eq:E1.02Uni}
-        d(\bar x, y) = d(T(\bar x), T(y)) \leq \ell d(\bar x, y)
-\end{equation}
-Since $d(\bar x, y) \geq 0$ and $\ell \in [0,1)$, the above equation indicates that $0 \leq (1-\ell)d(\bar x,y) \leq 0$, which results in $d(\bar x, y) = 0 \implies \bar x = y$. Hence, $\bar x$ is the unique fixed point of $T$. This completes the proof for i).
-
-Note that for $\forall k\in\N$
-\begin{equation}
-        d(x_{k+1},\bar x) = d(T(x_k), T(\bar x)) \leq \ell d(x_k,\bar x) 
-\end{equation}
-That is,
-\begin{equation}
-        \norm{x_{k+1}-\bar x} \leq \ell\norm{x_k-\bar x}
-\end{equation}
-Hence, we have
-\begin{equation}
-        \begin{aligned}
-                \norm{x_{k}-\bar x} &\leq \ell\norm{x_{k-1}-\bar x} \\
-                &\leq \ell^2\norm{x_{k-1}-\bar x} \\
-                &\leq \cdots \\
-                &\leq \ell^k\norm{x_0-\bar x}
-        \end{aligned}
-\end{equation}
-This completes the proof for ii).
-
-We have proved that $x_k$ is a Cauchy sequence in equation (\ref{eq:E1.02Cauchy}) and converges to an unique fixed point $\bar x$ in (\ref{eq:E1.02fixed}) and (\ref{eq:E1.02Uni}). That is
-\begin{equation}
-        \lim_{k\ra\infty} x(k) = \bar x
-\end{equation}
-This completes the proof of the theorem.
 \end{proof}
 
 
-\tb{E1.08 } Let $A \in \R^{n\times n}$ be doubly-stochastic. Show that
-\begin{enumerate}[label = {\roman{enumi})}]
-        \item $I_n - A^TA \succeq 0$;
-        \item $0 \in \Lambda(I_n - A^TA)$
-\end{enumerate}
-
+\tb{Problem 4}
 \begin{proof}
 
-i) Since $A$ is doubly-stochastic, we have
-\begin{align}
-        A\tb{1} &= [\sum_{j = 1}^n a_{ij}] = \tb{1} \\
-        \tb{1}^TA &= [\sum_{i = 1}^n a_{ij}]^T = \tb{1}^T
-\end{align}
-Thus,
-\begin{align}
-        A^TA\tb{1} &= A^T\tb{1} = \tb{1} \\
-        \tb{1}^TA^TA &= \tb{1}^TA = \tb{1}^T
-\end{align}
-which implies that $A^TA$ is also doubly-stochastic. Furthermore, $A^TA$ is symmetric and thus all its eigenvalues are real number. According to Gershgorin's theorem, we have $\rho(A^TA) \leq 1$. As a result, it is true that
-\begin{equation}
-        x^TA^TAx \leq \rho(A^TA)x^Tx \leq x^Tx
-\end{equation}
-for any $x \in \R^n$. Rewrite the above equation as follows
-\begin{equation}
-        x^T(I_n - A^TA) = x^Tx - x^TA^TAx \geq 0
-\end{equation}
-which implies that $I_n - A^TA$ is semi-positive definite. That is, $I_n - A^TA \succeq 0$.
+Recall the definition of asymptotically stable set (Theorem 6.3 \cite{b2}):
+\begin{defi}
+        Suppose that $A \in C$ is a closed set. Then $A$ is asymptotically stable if and only if there exists a neighborhood $D$ of $A$ and a continuous function $v:D\ra R_+$ satisfying the following conditions:
+        \begin{equation}
+                v(x) = 0 \hspace{0.4cm} \tn{if and only if } x\in A,
+        \end{equation}
+        \begin{equation}
+                v(\xi(t,x)) < v(x) \hspace{0.4cm} \tn{if } x\notin A, t>0, \tn{and } \xi(s,x)\in D ~~\forall s\in[0,t].
+        \end{equation}
+\end{defi}
 
-ii) Based on the results of i), we have
+For this theorem, there is a proof in \cite{b2} (Proposition 3.13). The main idea goes as follows:
+        
+Consider that $X \subset \delta$ is a evolutionary stable set (ES set). Then $\forall x \in X$, there exists $W_x$ be a neighbor of $x$ such that:
+
 \begin{equation}
-        (I_n - A^TA)\tb{1} = \tb{1} - A^TA\tb{1} = \tb{1} - \tb{1} = \tb{0} = 0\cdot\tb{1}
+\pi(x,y) > \pi(y,y)
 \end{equation}
-Hence, $I_n - A^TA$ has a zero eigenvalue,
+
+$\forall y \in W_x \setminus\{x\}$. Let $Q_x \in \Delta$ be the set of mixed strategies $y \in \Delta$ that assign positive probabilities to all pure strategies with positive probabilities assigned by $x$:
+
 \begin{equation}
-        0 \in \Lambda(I_n - A^TA)
+Q_x=\{y \in \Delta : C(x) \subset C(y)\}
 \end{equation}
-This completes the proof.
+
+Then $V_x=W_x \cap Q_x $  is a (relative) neighborhood of $x$ on which the entropy function $H_x$ is defined. After, we identify a neighborhood $P$ of $X$ which is a basin of attraction for $X$. Hence, $\forall x \in \Delta \exists \alpha_x \in \mathbb{R} : \alpha_x > 0$ such that the lower contour set $P_x=\{y \in Q_x : H_x(y) < \alpha_x\}$ is contained in the above neighborhood $V_x$. Let $P$ be the union of all $P_x$. Then $P \subset \Delta$ is a neighborhood of $X$ (relative to $\Delta$). Furthermore, if $y \in P\setminus\{x\} $, then $y \in P_x$ for some $x \in X$, and $\dot{H_x}(y<0)$ for each such x.
+
+For each $y \in P$ let $X(y)=\{x \in X : C(x) \subset C(y) \}$ with the function $H$ defined as:
+
+\begin{equation}
+H(y)=min(H_x(y))
+\end{equation}
+
+By Berge's maximum theorem, $H$ is continuous. Furthermore, $H(y) \ge 0 \forall y \in P$ if and only if $y \in X$. As we defined previously  $y \in P\setminus\{x\} $, consequently $\xi(x_0,t)\in P$ and $H(\xi(x_0,t))<H(x_0 \forall t > 0)$ Hence, X is asymptotically stable.
+
 
 \end{proof}
 
 
 
- 
-\tb{E1.12 } Show that if a digraph $G$ is weighted-balanced, then its Laplacian $L$ is such that $L+L^T \succeq 0$.
-
-\begin{proof}
-
-Assume that the number of vertices of the digraph $G$ is $N$. Since $G$ is weighted-balanced, we have 
-\begin{equation}\label{eq:E1.12wei}
-        d_{in}(i) = d_{out}(i), \quad i = 1,\dots,N
-\end{equation}
-where $d_{in}$ and $d_{out}$ are in-degree and out-degree respectively. Denote $A$ the weighted adjacency matrix, $D_{out} = diag[d_{out}(1), \dots, d_{out}(N)]$ the out-degree matrix, then
-\begin{align}
-        d_{out}(i) &= \sum_{k\neq i}^N a_{ik} \\ 
-        d_{in}(i) &= \sum_{k\neq i}^N a_{ki} \\ 
-\end{align}
-Thus
-\begin{equation}
-        \sum_{k\neq i}^N a_{ik} = \sum_{k\neq i}^N a_{ki}
-\end{equation}
-
-Denote $L$ the Laplacian matrix of $G$, 
-\begin{equation}
-        L = D_{out} - A = diag[d_{out}(1), \dots, d_{out}(N)] - A
-\end{equation}
-We have
-\begin{equation}
-        \begin{aligned}
-                L+L^T &= 2\times diag[d_{out}(1), \dots, d_{out}(N)] - A - A^T \\
-                &= \mat 
-                2\sum_{k\neq 1}^N a_{1k}        &-a_{12}-a_{21}                 &\cdots         &-a_{1N}-a_{N1} \\
-                -a_{21}-a_{12}                  &2\sum_{k\neq 2}^N a_{2k}       &\cdots         &-a_{2N}-a_{N2} \\
-                \vdots                          &\vdots                         &\ddots         &\vdots         \\
-                -a_{N1}-a_{1N}                  &-a_{N2}-a_{2N}                 &\cdots         &2\sum_{k\neq N}^N a_{Nk}
-                \mate
-        \end{aligned}
-\end{equation}
-
-Let $P=L+L^T$, and
-\begin{align}
-        R_i = \sum_{k\neq i}^N \abs{p_{ik}} = \abs{\sum_{k\neq i}^Na_{ik} + \sum_{k\neq i}^Na_{ki}} = 2\sum_{k\neq i}^N a_{ik}
-\end{align}
-\begin{equation}
-        p_{ii} = 2\sum_{k\neq i}^N a_{ik}
-\end{equation}
-According to the Gershgorin theorem, every eigenvalue of $P$ lies within at least one of the Gershgorin discs $D_i(p_{ii}, R_i)$. Note that $P$ is a symmetric matrix, so all its eigenvalues are real. Thus,
-\begin{equation}
-        \Lambda(P) \subset \cup_{i\in\{1,...,n\}} \{ x\in\R \ | \norm{x-p_{ii}} \leq R_i \}
-\end{equation}
-which implies that all eigenvalues of $P$ are non-negative. Hence, $P=L+L^T$ is semi-positive definite, that is, $L+L^T \succeq 0$.
-
-\end{proof}
-
-
-% \tb{E1.13 } Let $A \in \mathbb{R}^{n \times n}$ be a row-stochastic adjacency matrix and let $L$ be the Laplacian matrix of the digraph associated with $A$. Characterize $\Lambda(L)$ as function of $\Lambda(A)$.
-
-% \tb{Solution: } 
-% Denote the digraph associated with $A$ as $G$. $A$ is row-stochastic, thus
-% \begin{equation}
-%         \sum_{j=1}^N = a_{ij} = 1, \quad \forall i = 1, 2, \dots, N
-% \end{equation}
-% \begin{equation}
-%         d_{out}(i) = 1, \quad D_{out} = I
-% \end{equation}
-% Thus,
-% \begin{equation}
-%         L = D_{out} - A = I - A
-% \end{equation}
-% % Denote $\lambda_A \in \Lambda(A)$, $\lambda_L \in \Lambda(L)$ the eigenvalues of $A$ and $L$ respectively, then
-% % \begin{align}
-% %         \abs{\lambda_AI - A} &= 0 \\
-% %         \abs{\lambda_LI - L} &= \abs{(1-\lambda_L)I - A} = 0
-% % \end{align}
-% % Thus
-% % \begin{align}
-% %         1-\lambda_L &= \lambda_A \\
-% %         1-\lambda_A &= \lambda_L
-% % \end{align}
-
-% According to the Gershgorin theorem,
-% \begin{equation}
-%         \Lambda(A) \subset \cup_{i\in\{1,...,n\}}\{z\in \mathbb{C} | \norm{z-a_{ii}}\le \sum_{j\ne i}^n\norm{a_{ij}} \}
-% \end{equation}
-% \begin{equation}
-%         \Lambda(L) \subset \cup_{i\in\{1,...,n\}}\{z\in \mathbb{C} | \norm{z-(1-a_{ii})}\le \sum_{j\ne i}^n\norm{a_{ij}} \}
-% \end{equation}
-% which implies that the eigenvalues of $L$ are within  $\Lambda(A)$ rotated in the complex plane around the imaginary axis shifted one unit to the right.
-
-% More precisely, denote $\lambda_A \in \Lambda(A)$, $\lambda_L \in \Lambda(L)$ the eigenvalues of $A$ and $L$ respectively, then
-% \begin{align}
-%         \abs{\lambda_AI - A} &= 0 \\
-%         \abs{\lambda_LI - L} &= \abs{(1-\lambda_L)I - A} = 0
-% \end{align}
-% Thus
-% \begin{align}
-%         \lambda_A &= 1-\lambda_L \\
-%         \lambda_L &= 1-\lambda_A
-% \end{align}
 
 
 %% Bibliography
-% \bibliographystyle{plain}
-% \begin{thebibliography}{99}
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
 
-%         \bibitem{c1} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+        \bibitem{b1} M. Maschler, E. Solan, and S. Zamir. \ti{Game Theory.} Cambridge: Cambridge University Press, 2013.
 
-            
-% \end{thebibliography}
+        \bibitem{b2} Weibull, Jörgen W. \ti{Evolutionary Game Theory}. MIT Press, 1997.
+
+        \bibitem{b3} W. H. Sandholm, E. Dokumaci, and F. Franchetti. \ti{Dynamo: Diagrams for Evolutionary Game Dynamics}. 2012. http://www.ssc.wisc.edu/~whs/dynamo.
+
+        % \bibitem{b4} Riehl, J. R., and Cao, M. Minimal-agent control of evolutionary games on tree networks. In The 21st International Symposium on Mathematical Theory of Networks and Systems (Vol. 148), 2014.
+
+        \bibitem{b5} H.K. Khalil. \ti{Nonlinear systems}. Prentice Hall, Upper Saddle River, USA, third edition, 2002.
+
+\end{thebibliography}
 
 
 \end{document}
